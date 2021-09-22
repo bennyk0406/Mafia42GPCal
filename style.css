@@ -1,0 +1,73 @@
+.has-item {
+    text-align: center;
+}
+td {
+    padding: 0px 1rem;
+    text-align: center;
+}
+header {
+    height: 40px;
+    display: table-cell; 
+    vertical-align: middle;
+    width: 100%;
+    padding: 16px 0px;
+    color: white;
+    background: rgba(50,50,55);
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+#header-img {
+    margin: 0;
+    height: 110%;
+}
+body {
+    padding-top: 40px;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+}
+main {
+    padding: 3rem 1rem 0.5rem 1rem;
+    color: #FFFFFF;
+    background-color: rgba(30,30,35);
+}
+#item-table {
+    width: 90vw;
+    max-width: 500px;
+    margin: auto;
+}
+#comment {
+    text-align: right;
+    padding: 1rem 10px 4rem 5px;
+    color: #FFFFFF;
+    background-color: rgba(30,30,35);
+}
+footer {
+    display: table-cell; 
+    vertical-align: middle;
+    width: 100%;
+    padding: 1rem 0px;
+    color: white;
+    background: rgba(50,50,55);
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-weight: bold;
+}
+button {
+    position: fixed;
+    right: 3px;
+    bottom: 0;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    width: 90px;
+}
+
+#change-gashapon-img {
+    width: 100%;
+}

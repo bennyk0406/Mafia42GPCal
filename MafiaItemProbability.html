@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>MAFIA42 확률 계산기</title>
+        <link rel='stylesheet' href='./style.css'></link>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    </head>    
+    <body>
+        <header>
+            <img id='header-img' src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuV5wz%2FbtrfDgHxnDx%2FqGPCL2czkTAmYeq6eumL91%2Fimg.png" alt="헤더 이미지" />
+        </header>
+        <main>
+            <table id='item-table'>
+                <tr>
+                    <th>보유 여부</th>
+                    <th>아이템</th>
+                    <th>확률</th>
+                </tr>
+            </table>              
+        </main>
+        <footer>
+            <span id='total-probability'>
+                장착 아이템 확률 : NaN%
+            </span>
+            <button type='button' onclick='onClickChangeButton()'>
+                <img id='change-gashapon-img' src='https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FrcuWD%2FbtrfIZE6mfR%2FTWacfWKMkhd0pnLZVykyJK%2Fimg.png' alt='종류 변경 이미지' />
+            </button>
+        </footer>
+        <div id='comment'>
+            Made by 자리
+            <br>Thanks to 지빵, 무언가, 캐시, 불
+            <br>v0.2.1
+        </div>
+        <script src='./itemData.js'></script>
+        <script src='./script.js'></script>
+    </body>
+</html>
