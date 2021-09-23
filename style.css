@@ -35,8 +35,9 @@ main {
 }
 #item-table {
     width: 90vw;
-    max-width: 500px;
+    max-width: 600px;
     margin: auto;
+    table-layout: fixed;
 }
 #comment {
     text-align: right;
