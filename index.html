@@ -15,9 +15,17 @@
         <main>
             <table id='item-table'>
                 <tr>
-                    <th>보유 여부</th>
-                    <th>아이템</th>
-                    <th>확률</th>
+                    <tr>
+                        <th id='checkbox-raw'>
+                            보유 여부
+                        </th>
+                        <th id='name-raw'>
+                            아이템
+                        </th>
+                        <th id='probability-raw'>
+                            확률
+                        </th>
+                    </tr>
                 </tr>
             </table>              
         </main>
@@ -26,13 +34,13 @@
                 장착 아이템 확률 : NaN%
             </span>
             <button type='button' onclick='onClickChangeButton()'>
-                <img id='change-gashapon-img' src='./image/high.png' alt='종류 변경 이미지' />
+                <img class='gashapon-img' id='high-gashapon-img' src='./image/high.png' alt='종류 변경 이미지' />
             </button>
         </footer>
         <div id='comment'>
             Made by 자리
             <br>Thanks to 지빵, 무언가, 캐시, 불
-            <br>v0.2.3
+            <br>v0.2.4
         </div>
         <script src='./itemData.js'></script>
         <script src='./script.js'></script>

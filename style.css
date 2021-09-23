@@ -29,14 +29,14 @@ body {
     margin: 0;
 }
 main {
-    padding: 3rem 1rem 0.5rem 1rem;
+    padding: 3rem 5vw 0.5rem 5vw;
     color: #FFFFFF;
     background-color: rgba(30,30,35);
 }
 #item-table {
     width: 90vw;
-    max-width: 600px;
-    margin: auto;
+    max-width: 500px;
+    margin: 0;
     table-layout: fixed;
 }
 #comment {
@@ -68,7 +68,15 @@ button {
     outline: 0;
     width: 90px;
 }
-
-#change-gashapon-img {
+.gashapon-img {
     width: 100%;
+}
+#checkbox-raw {
+    width: 20%;
+}
+#name-raw {
+    width: 55%;
+}
+#probability-raw {
+    width: 25%;
 }

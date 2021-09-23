@@ -27,11 +27,13 @@ const onClickCheckbox = function(level) {
 }
 
 const onClickChangeButton = function() {
-    const img = document.getElementById('change-gashapon-img'); 
-    if (img.src === imageUrlList[0]) {
+    const img = document.getElementsByClassName('gashapon-img')[0]; 
+    if (img.id === "low-gashapon-img") {
+        img.setAttribute('id', 'high-gashapon-img');
         img.setAttribute('src', imageUrlList[1]);
         setTable(itemData.high, 'high');
     } else {
+        img.setAttribute('id', 'low-gashapon-img');
         img.setAttribute('src', imageUrlList[0]);
         setTable(itemData.low, 'low');
     }
@@ -40,13 +42,13 @@ const onClickChangeButton = function() {
 const setTable = function(itemList, level) {
     const table = document.getElementById('item-table');
     table.innerHTML = `<tr>
-        <th>
+        <th id='checkbox-raw'>
             보유 여부
         </th>
-        <th>
+        <th id='name-raw'>
             아이템
         </th>
-        <th>
+        <th id='probability-raw'>
             확률
         </th>
     </tr>`;
@@ -78,13 +80,15 @@ const setTable = function(itemList, level) {
         table.append(item);
     }
     const equipItemProbability = Math.round(equipItemList.map(i => i.probability).reduce((a,b) => a + b) * 1000) / 1000; 
-    const image = document.getElementById('change-gashapon-img');
+    const img = document.getElementsByClassName('gashapon-img')[0];
     switch (level) {
         case 'high': 
-            image.outerHTML = `<img id='change-gashapon-img' src='${imageUrlList[1]}' alt='단계 변경 이미지' />`;
+            img.setAttribute('id', 'high-gashapon-img');
+            img.setAttribute('src', imageUrlList[1]);
             break;
         case 'low':
-            image.outerHTML = `<img id='change-gashapon-img' src='${imageUrlList[0]}' alt='단계 변경 이미지' />`;
+            img.setAttribute('id', 'low-gashapon-img');
+            img.setAttribute('src', imageUrlList[0]);
             break;
     }
     const totalProbability = document.getElementById('total-probability');
