@@ -29,15 +29,16 @@ body {
     margin: 0;
 }
 main {
-    padding: 3rem 5vw 0.5rem 5vw;
+    padding: 3rem 1rem 0.5rem 1rem;
     color: #FFFFFF;
     background-color: rgba(30,30,35);
+    text-align: center;
 }
 #item-table {
     width: 90vw;
     max-width: 500px;
-    margin: 0;
     table-layout: fixed;
+    margin: 0 auto;
 }
 #comment {
     text-align: right;
