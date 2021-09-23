@@ -1,6 +1,6 @@
 const imageUrlList = [
-    'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb7ca3D%2FbtrfBro6Kr7%2FfBhxyIDBz9K0ucOMYLjS6K%2Fimg.png',
-    'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FrcuWD%2FbtrfIZE6mfR%2FTWacfWKMkhd0pnLZVykyJK%2Fimg.png'
+    './image/low.png',
+    './image/high.png'
 ];
 
 const onClickCheckbox = function(level) {
