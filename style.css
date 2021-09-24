@@ -32,13 +32,13 @@ main {
     padding: 3rem 1rem 0.5rem 1rem;
     color: #FFFFFF;
     background-color: rgba(30,30,35);
-    text-align: center;
 }
-#item-table {
+.item-table {
     width: 90vw;
     max-width: 500px;
     table-layout: fixed;
     margin: 0 auto;
+    padding-top: 50px;
 }
 #comment {
     text-align: right;
@@ -80,4 +80,57 @@ button {
 }
 #probability-raw {
     width: 25%;
+}
+#songpyeon-container {
+    display: grid;
+    grid-gap: 5px;
+    width: 50vw;
+    max-width: 200px;
+    margin: 0 auto auto auto;
+    grid-template-columns: 2fr, 1fr;
+}
+#songgi-label-container {
+    grid-column: 1;
+    grid-row: 1;
+    margin-left: 0;
+}
+#songgi-amount-container {
+    grid-column: 2;
+    grid-row: 1;
+    margin-right: 0;
+    text-align: right;
+}
+#flower-label-container {
+    grid-column: 1;
+    grid-row: 2;
+    margin-left: 0;
+}
+#flower-amount-container {
+    grid-column: 2;
+    grid-row: 2;
+    margin-right: 0;
+    text-align: right;
+}
+#pig-label-container {
+    grid-column: 1;
+    grid-row: 3;
+    margin-left: 0;
+}
+#pig-amount-container {
+    grid-column: 2;
+    grid-row: 3;
+    margin-right: 0;
+    text-align: right;
+}
+#songgi, #flower, #pig {
+    display: inline-block;
+    margin-left: 0;
+}
+#songgi-amount, #flower-amount, #pig-amount {
+    border: 2px white solid; 
+    background: transparent;
+    color: white;
+    width: 10vw;
+    max-width: 50px;
+    font-family: 'Noto Sans KR', sans-serif;
 }
