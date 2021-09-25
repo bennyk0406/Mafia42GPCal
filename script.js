@@ -10,10 +10,11 @@ let songpyeonAmount = {
 };
 
 const onCheckboxClick = function(level) {
+    const pinkAmount = document.getElementById('pink-amount').value;
     const songgiAmount = document.getElementById('songgi-amount').value;
     const flowerAmount = document.getElementById('flower-amount').value;
     const pigAmount = document.getElementById('pig-amount').value;
-    const addedProbability = 5 * songgiAmount + 10 * flowerAmount + 20 * pigAmount;
+    const addedProbability = 2.5 * pinkAmount + 5 * songgiAmount + 10 * flowerAmount + 20 * pigAmount;
     const checkList = [...document.querySelectorAll('input[type="checkbox"]')].map(e => e.checked);
     const itemList = itemData[level].map(value => ({...value}));
     const equipList = itemList.filter(i => i.isEquipItem);
@@ -117,16 +118,17 @@ const setTable = function(itemList, level) {
 };
 
 const onAmountChange = function (name) {
+    let pinkAmount = document.getElementById('pink-amount').value === '' ? 0 : parseInt(document.getElementById('pink-amount').value);
     let songgiAmount = document.getElementById('songgi-amount').value === '' ? 0 : parseInt(document.getElementById('songgi-amount').value);
     let flowerAmount = document.getElementById('flower-amount').value === '' ? 0 : parseInt(document.getElementById('flower-amount').value);
     let pigAmount = document.getElementById('pig-amount').value === '' ? 0 : parseInt(document.getElementById('pig-amount').value);
-    if (songgiAmount + flowerAmount + pigAmount > 4) {
+    if (pinkAmount + songgiAmount + flowerAmount + pigAmount > 4) {
         document.getElementById(`${name}-amount`).value = songpyeonAmount[`${name}`];
         alert('넣을 수 있는 송편의 최대 개수는 4개입니다.');
         return;
     }
     songpyeonAmount[name] = document.getElementById(`${name}-amount`).value;
-    const addedProbability = 5 * songgiAmount + 10 * flowerAmount + 20 * pigAmount;
+    const addedProbability = 2.5 * pinkAmount + 5 * songgiAmount + 10 * flowerAmount + 20 * pigAmount;
     const level = document.getElementsByClassName('item-table')[0].id.split('-')[0];
     const checkList = [...document.querySelectorAll('input[type="checkbox"]')].map(e => e.checked);
     const itemList = itemData[level].map(value => ({...value}));

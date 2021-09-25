@@ -89,44 +89,55 @@ button {
     margin: 0 auto auto auto;
     grid-template-columns: 2fr, 1fr;
 }
-#songgi-label-container {
+#pink-label-container {
     grid-column: 1;
     grid-row: 1;
     margin-left: 0;
 }
-#songgi-amount-container {
+#pink-amount-container {
     grid-column: 2;
     grid-row: 1;
+    margin-left: 0;
+    text-align: right;
+}
+#songgi-label-container {
+    grid-column: 1;
+    grid-row: 2;
+    margin-left: 0;
+}
+#songgi-amount-container {
+    grid-column: 2;
+    grid-row: 2;
     margin-right: 0;
     text-align: right;
 }
 #flower-label-container {
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 3;
     margin-left: 0;
 }
 #flower-amount-container {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 3;
     margin-right: 0;
     text-align: right;
 }
 #pig-label-container {
     grid-column: 1;
-    grid-row: 3;
+    grid-row: 4;
     margin-left: 0;
 }
 #pig-amount-container {
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 4;
     margin-right: 0;
     text-align: right;
 }
-#songgi, #flower, #pig {
+#pink, #songgi, #flower, #pig {
     display: inline-block;
     margin-left: 0;
 }
-#songgi-amount, #flower-amount, #pig-amount {
+#pink-amount, #songgi-amount, #flower-amount, #pig-amount {
     border: 2px white solid; 
     background: transparent;
     color: white;
