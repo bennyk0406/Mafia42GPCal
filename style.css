@@ -156,8 +156,6 @@ footer {
     margin: 0;
     text-align: right;
     padding: 1rem 10px 4rem 5px;
-    grid-column: 2;
-    grid-row: 1;
     background-color: rgba(30,30,35);
     color: #FFFFFF
 }
