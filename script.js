@@ -160,4 +160,8 @@ const onAmountChange = function (name) {
     totalProbability.innerText = `장착 아이템 확률 : ${Math.round(equipItemTotalProbability * 1000)/1000}%`;
 };
 
+const onDaehyunButtonClick = function() {
+    window.open("http://대현.com");
+}
+
 setTable(itemData.high, 'high');
