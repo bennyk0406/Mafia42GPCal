@@ -73,6 +73,7 @@ footer {
     width: 60px;
 }
 #daehyun-img {
+    display: inline-block;
     width: 100%;
 }
 .gashapon-img {
