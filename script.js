@@ -4,6 +4,7 @@ const imageUrlList = [
 ];
 
 let songpyeonAmount = {
+    'pink': 0,
     'songgi': 0,
     'flower': 0,
     'pig': 0
