@@ -16,7 +16,9 @@ const onCheckboxClick = function(level) {
     const flowerAmount = document.getElementById('flower-amount').value;
     const pigAmount = document.getElementById('pig-amount').value;
     const addedProbability = 2.5 * pinkAmount + 5 * songgiAmount + 10 * flowerAmount + 20 * pigAmount;
-    const checkList = [...document.querySelectorAll('input[type="checkbox"]')].map(e => e.checked);
+    const checkList = [...document.getElementsByClassName(`${level}-item-checkbox`)].map(e => e.checked);
+    const selectAllCheckbox = document.getElementsByClassName('select-all-checkbox')[0];
+    selectAllCheckbox.checked = checkList.every(e => e);
     const itemList = itemData[level].map(value => ({...value}));
     const equipList = itemList.filter(i => i.isEquipItem);
     const otherList = itemList.filter(i => !i.isEquipItem);
@@ -38,7 +40,7 @@ const onCheckboxClick = function(level) {
     for (let l = 0; l < otherList.length; l++) {
         otherList[l].probability *= (100 - equipItemTotalProbability) / otherItemTotalProbability; 
     }
-    const probabilityList = [...document.querySelectorAll('.probability')]; 
+    const probabilityList = [...document.getElementsByClassName('probability')]; 
     for (let m = 0; m < probabilityList.length; m++) {
         probabilityList[m].innerText = `${Math.round(itemList[m].probability * 1000) / 1000}%`;
     }
@@ -64,9 +66,9 @@ const onChangeButtonClick = function() {
 
 const setTable = function(itemList, level) {
     const table = document.getElementsByClassName('item-table')[0];
-    table.innerHTML = `<tr>
+    table.innerHTML = `<tr id='item-table-header'>
         <th id='checkbox-raw'>
-            보유 여부
+            <input class='select-all-checkbox' id='select-all-checkbox-${level}' type='checkbox' onclick='onSelectAllCheckboxClick("${level}")'>
         </th>
         <th id='name-raw'>
             아이템
@@ -80,7 +82,7 @@ const setTable = function(itemList, level) {
     for (const i of equipItemList) {
         const item = document.createElement('tr');
         item.innerHTML = `<td class='has-item'>
-            <input type='checkbox' onclick='onCheckboxClick("${level}")'>
+            <input type='checkbox' class='${level}-item-checkbox' onclick='onCheckboxClick("${level}")'>
         </td>
         <td class='name'>
             ${i.name}
@@ -163,6 +165,50 @@ const onAmountChange = function (name) {
 
 const onDaehyunButtonClick = function() {
     window.open("http://대현.com");
+};
+
+const onSettingButtonClick = function() {
+    const bodyWidth = document.getElementsByTagName('body')[0].offsetWidth;
+    const settingWindow = document.getElementById('setting-window');
+    settingWindow.style.display = 'block';
+    settingWindow.style.left = `${bodyWidth/2 - settingWindow.offsetWidth/2}px`;
+};
+
+const onCloseButtonClick = function() {
+    const settingWindow = document.getElementById('setting-window');
+    settingWindow.style.display = 'none';
 }
+
+const onSelectAllCheckboxClick = function(level) {
+    const selectAllCheckbox = document.getElementsByClassName('select-all-checkbox')[0];
+    const checkboxList = document.getElementsByClassName(`${level}-item-checkbox`);
+    for (i = 0; i < checkboxList.length; i++) {
+        checkboxList[i].checked = selectAllCheckbox.checked;
+    }
+    onCheckboxClick(level);
+}
+
+const dragState = {
+    dragging: false,
+    dragStartOffset: [ 0, 0 ]
+}
+const settingWindow = document.getElementById('setting-window');
+const head = document.getElementById('setting-window-header');
+head.addEventListener('mousedown', event => {
+    dragState.dragging = true;
+    const boundingClientRect = settingWindow.getBoundingClientRect();
+    dragState.dragStartOffset = [ event.pageX - boundingClientRect.x, event.pageY - boundingClientRect.y ];
+})
+document.addEventListener('mousemove', event => {
+    if (dragState.dragging) {
+        settingWindow.style.left = `${event.pageX - dragState.dragStartOffset[0]}px`;
+        settingWindow.style.top = `${event.pageY - dragState.dragStartOffset[1]}px`;
+    }
+})
+document.addEventListener('mouseup', () => {
+    if (dragState.dragging) {
+        dragState.dragging = false;
+    }
+})
 
 setTable(itemData.high, 'high');

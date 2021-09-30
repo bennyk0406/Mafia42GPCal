@@ -58,24 +58,22 @@
                 </div>
             </div>
             <table class='item-table' id='high-item-table'>
-                <tr>
-                    <tr>
-                        <th id='checkbox-raw'>
-                            보유 여부
-                        </th>
-                        <th id='name-raw'>
-                            아이템
-                        </th>
-                        <th id='probability-raw'>
-                            확률
-                        </th>
-                    </tr>
+                <tr id='item-table-header'>
+                    <th id='checkbox-raw'>
+                        <input class='select-all-checkbox' id='select-all-checkbox-high' type='checkbox' onclick='onSelectAllCheckboxClick("high")'>
+                    </th>
+                    <th id='name-raw'>
+                        아이템
+                    </th>
+                    <th id='probability-raw'>
+                        확률
+                    </th>
                 </tr>
-            </table>              
+            </table>
         </main>
         <footer>
-            <button type='button' id='daehyun-button' onclick='onDaehyunButtonClick()'>
-                <img id='daehyun-img' src='./images/daehyun.png' alt='대현닷컴 아이콘' />
+            <button type='button' id='setting-button' onclick='onSettingButtonClick()'>
+                <img id='setting-img' src='./images/setting.png' alt='설정 아이콘' />
             </button>
             <span id='total-probability'>
                 장착 아이템 확률 : NaN%
@@ -84,21 +82,30 @@
                 <img class='gashapon-img' id='high-gashapon-img' src='./images/high.png' alt='종류 변경 이미지' />
             </button>
         </footer>
-        <div id='comment'>
-            <p id='author'>
-                Made by 자리
-            </p>
-            <p id='supporter'>
-                Thanks to 지빵, 무언가, 캐시, 불
-            </p>
-            <p id='version'>
-                v0.3.1
-            </p>
-            <a href='http://대현.com' target='_blank'>
-                <p id='association'>
-                    대현닷컴 바로가기
+        <div id='setting-window'>
+            <div id='setting-window-header'>
+                <span id='setting-window-title'>설정</span>
+                <p class='closeButton' onclick='onCloseButtonClick()'>&times;</p>
+            </div>
+            <div id='setting-window-content'>
+                <input type='checkbox' id='dark-checkbox' checked='true' disabled> <label for='dark-checkbox'>다크 모드 사용하기 (미구현)</label>
+            </div>
+            <div id='comment'>
+                <p id='author'>
+                    Made by 자리
                 </p>
-            </a>
+                <p id='supporter'>
+                    Thanks to 지빵, 무언가, 캐시, 불
+                </p>
+                <p id='version'>
+                    v0.3.2
+                </p>
+                <a href='http://대현.com' target='_blank'>
+                    <p id='association'>
+                        대현닷컴 바로가기
+                    </p>
+                </a>
+            </div>
         </div>
         <script src='./data/2021chuseok.js'></script>
         <script src='./script.js'></script>
