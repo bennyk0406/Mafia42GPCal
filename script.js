@@ -133,7 +133,7 @@ const onAmountChange = function (name) {
     songpyeonAmount[name] = document.getElementById(`${name}-amount`).value;
     const addedProbability = 2.5 * pinkAmount + 5 * songgiAmount + 10 * flowerAmount + 20 * pigAmount;
     const level = document.getElementsByClassName('item-table')[0].id.split('-')[0];
-    const checkList = [...document.querySelectorAll('input[type="checkbox"]')].map(e => e.checked);
+    const checkList = [...document.getElementsByClassName(`${level}-item-checkbox`)].map(e => e.checked);
     const itemList = itemData[level].map(value => ({...value}));
     const equipList = itemList.filter(i => i.isEquipItem);
     const otherList = itemList.filter(i => !i.isEquipItem);
@@ -167,16 +167,35 @@ const onDaehyunButtonClick = function() {
     window.open("http://대현.com");
 };
 
+const onDarkCheckboxClick = function() {
+    const darkCheckbox = document.getElementById('dark-checkbox');
+    const isDark = darkCheckbox.checked;
+    if (isDark) {
+        document.documentElement.setAttribute('color-theme', 'dark');
+        localStorage.setItem('color-theme', 'dark');
+        document.getElementById('header-img').setAttribute('src','./images/logo-dark.png');
+        document.getElementById('setting-img').setAttribute('src','./images/setting-dark.png');
+    } else {
+        document.documentElement.setAttribute('color-theme', 'light');
+        localStorage.setItem('color-theme', 'light');
+        document.getElementById('header-img').setAttribute('src','./images/logo-light.png');
+        document.getElementById('setting-img').setAttribute('src','./images/setting-light.png');
+    }
+} 
+
 const onSettingButtonClick = function() {
     const bodyWidth = document.getElementsByTagName('body')[0].offsetWidth;
     const settingWindow = document.getElementById('setting-window');
     settingWindow.style.display = 'block';
     settingWindow.style.left = `${bodyWidth/2 - settingWindow.offsetWidth/2}px`;
+    document.getElementById('setting-window').setAttribute('emphasized','true');
+
 };
 
 const onCloseButtonClick = function() {
     const settingWindow = document.getElementById('setting-window');
     settingWindow.style.display = 'none';
+    document.getElementById('setting-window').setAttribute('emphasized','false');
 }
 
 const onSelectAllCheckboxClick = function(level) {
@@ -188,27 +207,48 @@ const onSelectAllCheckboxClick = function(level) {
     onCheckboxClick(level);
 }
 
-const dragState = {
-    dragging: false,
-    dragStartOffset: [ 0, 0 ]
-}
-const settingWindow = document.getElementById('setting-window');
-const head = document.getElementById('setting-window-header');
-head.addEventListener('mousedown', event => {
-    dragState.dragging = true;
-    const boundingClientRect = settingWindow.getBoundingClientRect();
-    dragState.dragStartOffset = [ event.pageX - boundingClientRect.x, event.pageY - boundingClientRect.y ];
-})
-document.addEventListener('mousemove', event => {
-    if (dragState.dragging) {
-        settingWindow.style.left = `${event.pageX - dragState.dragStartOffset[0]}px`;
-        settingWindow.style.top = `${event.pageY - dragState.dragStartOffset[1]}px`;
+window.onload = function () {
+    //set user color theme
+    const userColorTheme = localStorage.getItem('color-theme');
+    const osColorTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const colorTheme = userColorTheme ? userColorTheme : osColorTheme;
+    if (colorTheme === 'dark') {
+        localStorage.setItem('color-theme', 'dark');
+        document.documentElement.setAttribute('color-theme', 'dark');
+        document.getElementById('dark-checkbox').setAttribute('checked', true);
+        document.getElementById('header-img').setAttribute('src','./images/logo-dark.png');
+        document.getElementById('setting-img').setAttribute('src','./images/setting-dark.png');
+    } else {
+        localStorage.setItem('color-theme', 'light');
+        document.documentElement.setAttribute('color-theme', 'light');
+        document.getElementById('header-img').setAttribute('src','./images/logo-light.png');
+        document.getElementById('setting-img').setAttribute('src','./images/setting-light.png');
     }
-})
-document.addEventListener('mouseup', () => {
-    if (dragState.dragging) {
-        dragState.dragging = false;
-    }
-})
 
-setTable(itemData.high, 'high');
+    //move setting window
+    const dragState = {
+        dragging: false,
+        dragStartOffset: [ 0, 0 ]
+    };
+    const settingWindow = document.getElementById('setting-window');
+    const head = document.getElementById('setting-window-header');
+    head.addEventListener('mousedown', event => {
+        dragState.dragging = true;
+        const boundingClientRect = settingWindow.getBoundingClientRect();
+        dragState.dragStartOffset = [ event.pageX - boundingClientRect.x, event.pageY - boundingClientRect.y ];
+    });
+    document.addEventListener('mousemove', event => {
+        if (dragState.dragging) {
+            settingWindow.style.left = `${event.pageX - dragState.dragStartOffset[0]}px`;
+            settingWindow.style.top = `${event.pageY - dragState.dragStartOffset[1]}px`;
+        }
+    });
+    document.addEventListener('mouseup', () => {
+        if (dragState.dragging) {
+            dragState.dragging = false;
+        }
+    });
+
+    document.getElementById('setting-window').setAttribute('emphasized','false');
+    setTable(itemData.high, 'high');
+};
