@@ -1,6 +1,6 @@
 import { writeProductData } from "./module.js";
 
-const openFirstWindow = function () {
+export const openFirstWindow = function () {
     const bodyWidth = document.body.offsetWidth;
     const addWindow = document.getElementById('add-window-1');
     addWindow.setAttribute('emphasized','true');
@@ -8,7 +8,7 @@ const openFirstWindow = function () {
     document.getElementById('add-window-2').setAttribute('emphasized','false');
 };
 
-const openSecondWindow = function () {
+export const openSecondWindow = function () {
     const bodyWidth = document.body.offsetWidth;
     const addWindow = document.getElementById('add-window-2');
     addWindow.setAttribute('emphasized','true');
@@ -17,7 +17,7 @@ const openSecondWindow = function () {
     document.getElementById('add-window-3').setAttribute('emphasized','false');
 };
 
-const openThirdWindow = function () {
+export const openThirdWindow = function () {
     const bodyWidth = document.body.offsetWidth;
     const addWindow = document.getElementById('add-window-3');
     addWindow.setAttribute('emphasized','true');
@@ -25,13 +25,13 @@ const openThirdWindow = function () {
     document.getElementById('add-window-2').setAttribute('emphasized','false');
 };
 
-const onCloseButtonClick = function() {
+export const onCloseButtonClick = function() {
     document.getElementById('add-window-1').setAttribute('emphasized','false');
     document.getElementById('add-window-2').setAttribute('emphasized','false');
     document.getElementById('add-window-3').setAttribute('emphasized','false');
 }
 
-const submit = function() {
+export const submit = function() {
     const author = document.getElementById('author').value;
     const amountData = [];
     const priceData = [];
