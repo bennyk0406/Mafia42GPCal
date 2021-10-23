@@ -46,7 +46,7 @@ window.submit = function() {
                 cool: amountList[2],
                 insurance: amountList[3]
             });
-            const priceInputs = [...document.getElementById(`price-${job}`).getElementsByClassName('price')]
+            const priceInputs = [...document.getElementById(`price-${job}`).getElementsByClassName('price')];
             const priceList = priceInputs.map(i => i.value);
             priceData.push({
                 job,
