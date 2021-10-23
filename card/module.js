@@ -13,7 +13,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-export const writeProductData = function (name, amountList, priceList) {
+const writeProductData = function (name, amountList, priceList) {
     const db = getDatabase();
     set(ref(db, 'product/' + name), {
         name,
@@ -21,3 +21,5 @@ export const writeProductData = function (name, amountList, priceList) {
         price: priceList,
     });
 };
+
+export { firebaseConfig, app, analytics, writeProductData };
