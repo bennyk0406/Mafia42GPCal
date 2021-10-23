@@ -1,0 +1,224 @@
+:root[color-theme='light'] {
+    --background: rgba(255,255,255);
+    --header-background: rgba(241,244,245);
+    --setting-background: rgba(255,255,255);
+    --text: black;
+}
+
+:root[color-theme='dark'] {
+    --background: rgba(30,30,30);
+    --header-background: rgba(50,50,50);
+    --setting-background: rgba(60,60,60);
+    --border: black;
+    --text: white;
+}
+
+body {
+    padding-top: 40px;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#content {
+    margin: 0;
+}
+
+/* header */
+header {
+    position: fixed;
+    height: 40px;
+    width: 100%;
+    vertical-align: middle;
+    background-color: var(--background);
+    color: var(--text);
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    border-bottom: 1px var(--border) solid;
+    text-align: right;
+}
+
+img#header-img {
+    position: absolute;
+    height: 50%;
+    margin: auto auto auto 10px;
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    cursor: pointer;
+}
+
+img#menu-img {
+    position: absolute;
+    height: 75%;
+    margin: auto 10px auto auto;
+    top: 0; 
+    bottom: 0; 
+    right: 0;
+}
+
+/* main */
+main {
+    padding: 10px 1rem 5rem 1rem;
+    color: var(--text);
+    background-color: var(--background);
+}
+
+/* itemTable */
+.item-table {
+    width: 90vw;
+    max-width: 500px;
+    table-layout: fixed;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-top: 40px;
+}
+#item-table-header {
+    border-bottom: 1px solid var(--text);
+}
+td {
+    padding: 0px 1rem;
+    text-align: center;
+}
+.has-item {
+    text-align: center;
+}
+#checkbox-raw {
+    width: 20%;
+}
+#name-raw {
+    width: 55%;
+}
+#probability-raw {
+    width: 25%;
+}
+
+/* footer */
+footer {
+    vertical-align: middle;
+    width: 100%;
+    padding: 1rem 0px;
+    color: var(--text);
+    background: var(--header-background);
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-weight: bold;
+}
+#setting-button {
+    position: fixed;
+    left: 3px;
+    padding: 0;
+    bottom: 0;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    width: 50px;
+    cursor: pointer;
+}
+#setting-img {
+    width: 100%;
+}
+#gashapon-button {
+    position: fixed;
+    right: 3px;
+    bottom: 0;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    width: 90px;
+    cursor: pointer;
+}
+.gashapon-img {
+    width: 100%;
+}
+
+/* setting window */
+#setting-window[emphasized='false'] {
+    max-width: 500px;
+    min-width: 300px;
+    display: none;
+    position: fixed;
+    height: 50vh;
+    width: 50vw;
+    top: 25vh;
+    margin: 0;
+    color: var(--text);
+    border: 1px solid black;
+    border-radius: 5px;
+    z-index: 1;
+    background-color: var(--setting-background);
+}
+#setting-window[emphasized='true'] {
+    max-width: 500px;
+    min-width: 300px;
+    display: none;
+    position: fixed;
+    height: 50vh;
+    width: 50vw;
+    top: 25vh;
+    margin: 0;
+    color: var(--text);
+    border: 1px solid black;
+    border-radius: 5px;
+    z-index: 1;
+    background-color: var(--setting-background);
+    box-shadow : rgba(0,0,0,0.5) 0 0 0 9999px;
+}
+
+#setting-window-header {
+    padding: 5px 10px;
+}
+#setting-window-title {
+    font-size: 1.5rem;
+}
+#setting-window-content {
+    padding: 5px 0 0 10px;
+}
+#comment {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    text-align: right;
+}
+.closeButton {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+    opacity: 0.5;
+    margin-top: 5px;
+    cursor: pointer;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* others */
+a:link {
+    text-decoration: none;
+    color: #287AFF;
+}
+a:visited {
+    text-decoration: none;
+    color: #287AFF;
+}
+a:active {
+    text-decoration: none;
+    color: #287AFF;
+}
+a:hover {
+    text-decoration: none;
+    color: #287AFF;
+}

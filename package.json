@@ -1,0 +1,19 @@
+{
+  "name": "jaricom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "bootstrap": "node ./scripts/bootstrap-fauna-database.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bennyk0406/Mafia42GPCal.git"
+  },
+  "author": "Jari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bennyk0406/Mafia42GPCal/issues"
+  },
+  "homepage": "https://github.com/bennyk0406/Mafia42GPCal#readme"
+}
