@@ -22,4 +22,18 @@ const writeProductData = function (name, amountList, priceList) {
     });
 };
 
-export { firebaseConfig, app, analytics, writeProductData };
+const readProductData = function () {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `product/`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            return snapshot.val();
+        }
+        else {
+            return null;
+        }
+    }).catch((err) => {
+        console.log(err);
+    })
+};
+
+export { firebaseConfig, app, analytics, writeProductData, readProductData };

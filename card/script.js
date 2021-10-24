@@ -1,4 +1,4 @@
-import { writeProductData } from "./module.js";
+import { writeProductData, readProductData } from "./module.js";
 
 window.openFirstWindow = function () {
     const bodyWidth = document.body.offsetWidth;
@@ -129,4 +129,7 @@ window.onload = function () {
             jobAmount.appendChild(tr);
         }
     }
+
+    const productData = readProductData();
+    console.log(productData);
 }
