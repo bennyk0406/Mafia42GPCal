@@ -118,7 +118,7 @@ table#product-list {
     width: 100%;
 }
 
-th {
+table#product-list > th {
     width: 33%;
 }
 
