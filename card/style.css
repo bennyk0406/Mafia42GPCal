@@ -42,6 +42,9 @@ body > header {
     right: 0;
     border-bottom: 1px var(--border) solid;
     text-align: right;
+    display: grid;
+    grid-template-columns: 1fr 40px 50px;
+    grid-template-rows: 40px;
 }
 
 img#header-img {
@@ -64,7 +67,7 @@ img#menu-img {
 }
 
 svg#change-view-mode {
-    height: 100%;
+    height: 40px;
 }
 
 /* main */
