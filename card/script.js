@@ -33,6 +33,7 @@ window.onCloseButtonClick = function() {
 
 window.submit = function() {
     const author = document.getElementById('author').value;
+    const date = `${Date.getMonth()+1}월 ${Date.getDate()+1}일`;
     const amountData = [];
     const priceData = [];
     for (let team in priceList) {
@@ -57,7 +58,7 @@ window.submit = function() {
             });
         }
     }
-    writeProductData(author, amountData, priceData);
+    writeProductData(author, date, amountData, priceData);
 }
 
 window.onload = async function () {
@@ -131,5 +132,25 @@ window.onload = async function () {
     }
 
     const productData = await readProductData();
-    console.log(productData);
+    const productTable = document.getElementById('product-list');
+    for (let i of productData) {
+        const tr = document.createElement('tr');
+        const amountList = i.amount;
+        let totalAmount = 0;
+        for (let j of amountList) {
+            totalAmount += ( j.others + j.hot + j.cool + j.insurance ); 
+        }
+        tr.innerHTML = `
+            <td>
+                ${totalAmount}
+            </td>
+            <td>
+                ${i.name}
+            </td>
+            <td>
+                ${i.date}
+            </td>
+        `;
+        productTable.appendChild(tr);
+    }
 }

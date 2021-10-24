@@ -13,15 +13,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-const writeProductData = function (name, amountList, priceList) {
-    const db = getDatabase();
-    set(ref(db, 'product/' + name), {
-        name,
-        amount: amountList,
-        price: priceList,
-    });
-};
-
 const readProductData = async function () {
     const dbRef = ref(getDatabase());
     const snapshot = await get(child(dbRef, `product/`));
@@ -31,6 +22,25 @@ const readProductData = async function () {
     else {
         return null;
     }
+};
+
+const writeProductData = async function (name, date, amountList, priceList) {
+    const db = getDatabase();
+    const result = readProductData();
+    let index;
+    if (result === null) {
+        index = 0;
+    }
+    else {
+        index = Object.keys(result).length;
+    }
+    set(ref(db, 'product/' + index), {
+        name,
+        date,
+        amount: amountList,
+        price: priceList,
+    });
+    return true;
 };
 
 export { firebaseConfig, app, analytics, writeProductData, readProductData };
