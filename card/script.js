@@ -132,7 +132,8 @@ window.onload = async function () {
     }
 
     const productData = await readProductData();
-    if (productData === null) {
+    console.log(productData);
+    if (productData !== null) {
         const productTable = document.getElementById('product-list');
         for (let i of productData) {
             const tr = document.createElement('tr');
