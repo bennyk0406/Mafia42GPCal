@@ -32,7 +32,7 @@ const writeProductData = async function (name, date, amountList, priceList) {
         index = 0;
     }
     else {
-        index = Object.keys(result).length;
+        index = result.length;
     }
     console.log(index);
     set(ref(db, 'product/' + index), {
