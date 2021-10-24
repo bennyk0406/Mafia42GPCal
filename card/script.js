@@ -80,7 +80,7 @@ window.onload = async function () {
         document.getElementById('plus-img').innerHTML = '<defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-miterlimit:10;stroke-width:150px;}</style></defs><g id="레이어_9" data-name="레이어 9"><line class="cls-1" x1="500" y1="221" x2="500" y2="779"/><line class="cls-1" x1="221" y1="500" x2="779" y2="500"/></g>';
     }
     */
-    document.documentElement.setAttribute('color-theme', 'light');
+    document.documentElement.setAttribute('color-theme', 'dark');
 
     const jobPrice = document.getElementById('job-price');
     for (let team in priceList) {
