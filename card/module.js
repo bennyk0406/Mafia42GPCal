@@ -24,17 +24,13 @@ const writeProductData = function (name, amountList, priceList) {
 
 const readProductData = async function () {
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `product/`)).then((snapshot) => {
-        console.log(snapshot.val());
-        if (snapshot.exists()) {
-            return snapshot.val();
-        }
-        else {
-            return null;
-        }
-    }).catch((err) => {
-        console.log(err);
-    })
+    const snapshot = await get(child(dbRef, `product/`));
+    if (snapshot.exists()) {
+        return snapshot.val();
+    }
+    else {
+        return null;
+    }
 };
 
 export { firebaseConfig, app, analytics, writeProductData, readProductData };
