@@ -328,3 +328,7 @@ div.window-title-container {
     width: 100%;
     margin: 0;
 }
+
+svg#change-view-mode {
+    float: right;
+}
