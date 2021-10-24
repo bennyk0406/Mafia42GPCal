@@ -39,7 +39,7 @@ window.submit = function() {
     for (let team in priceList) {
         for (let job in priceList[team]) {
             const amountInputs = [...document.getElementById(`amount-${job}`).getElementsByClassName('amount')];
-            const amountList = amountInputs.map(i => i.value);
+            const amountList = amountInputs.map(i => parseInt(i.value));
             amountData.push({
                 job,
                 others: amountList[0],
@@ -48,7 +48,7 @@ window.submit = function() {
                 insurance: amountList[3]
             });
             const priceInputs = [...document.getElementById(`price-${job}`).getElementsByClassName('price')];
-            const priceList = priceInputs.map(i => i.value);
+            const priceList = priceInputs.map(i => parseInt(i.value));
             priceData.push({
                 job,
                 others: priceList[0],
