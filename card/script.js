@@ -60,7 +60,7 @@ window.submit = function() {
     writeProductData(author, amountData, priceData);
 }
 
-window.onload = async function () {
+window.onload = function () {
     //set user color theme
     /*
     const userColorTheme = localStorage.getItem('color-theme');
@@ -130,6 +130,6 @@ window.onload = async function () {
         }
     }
 
-    const productData = await readProductData();
+    const productData = readProductData();
     console.log(productData);
 }
