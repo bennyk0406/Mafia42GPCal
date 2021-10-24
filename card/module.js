@@ -27,6 +27,7 @@ const readProductData = async function () {
 const writeProductData = async function (name, date, amountList, priceList) {
     const db = getDatabase();
     const result = await readProductData();
+    console.log(result);
     let index;
     if (result === null) {
         index = 0;
