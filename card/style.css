@@ -63,6 +63,10 @@ img#menu-img {
     right: 0;
 }
 
+svg#change-view-mode {
+    height: 100%;
+}
+
 /* main */
 main {
     color: var(--text);
@@ -111,6 +115,10 @@ table#product-list {
     width: 100%;
 }
 
+th {
+    width: 33%;
+}
+
 /* footer */
 footer {
     position: fixed;
@@ -124,7 +132,7 @@ footer {
     align-items: center;
 }
 
-svg {
+svg#plus-img {
     width: 50px;
     border-radius: 25px;
     border: 1px var(--border) solid;
@@ -327,8 +335,4 @@ input:focus {
 div.window-title-container {
     width: 100%;
     margin: 0;
-}
-
-svg#change-view-mode {
-    float: right;
 }

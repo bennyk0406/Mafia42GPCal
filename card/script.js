@@ -33,7 +33,7 @@ window.onCloseButtonClick = function() {
 
 window.submit = function() {
     const author = document.getElementById('author').value;
-    const date = `${new Date().getMonth()+1}월 ${new Date().getDate()+1}일`;
+    const date = `${new Date().getMonth()+1}월 ${new Date().getDate()}일`;
     const amountData = [];
     const priceData = [];
     for (let team in priceList) {
