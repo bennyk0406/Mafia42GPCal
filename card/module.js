@@ -25,6 +25,7 @@ const writeProductData = function (name, amountList, priceList) {
 const readProductData = async function () {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `product/`)).then((snapshot) => {
+        console.log(snapshot);
         if (snapshot.exists()) {
             return snapshot.val();
         }
