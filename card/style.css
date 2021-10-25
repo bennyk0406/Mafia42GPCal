@@ -122,6 +122,10 @@ table#product-list > th {
     width: 33%;
 }
 
+table#product-list > tr {
+    height: 40px;
+}
+
 /* footer */
 footer {
     position: fixed;
