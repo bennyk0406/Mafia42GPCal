@@ -268,7 +268,7 @@ window.onload = async function () {
 
             for (let k of priceList) {
                 const tr = document.createElement('tr');
-                const team = jobList.find(e => jobList[e] === k.job);
+                const team = Object.keys(jobList).find(e => jobList[e] === j.job);
                 tr.innerHTML = `
                     <td id='${team}'>
                         ${k.others}
