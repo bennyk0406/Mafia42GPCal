@@ -245,7 +245,7 @@ window.onload = async function () {
             for (let j of amountList) {
                 totalAmount += ( j.others + j.hot + j.cool + j.insurance );
                 const tr = document.createElement('tr');
-                const team = Object.keys(jobList).find(e => jobList[e] === j.job);
+                const team = Object.keys(jobList).find(e => jobList[e].includes(j.job));
                 tr.innerHTML = `
                     <td class='${team}'>
                         ${j.job}
@@ -268,7 +268,7 @@ window.onload = async function () {
 
             for (let k of priceList) {
                 const tr = document.createElement('tr');
-                const team = Object.keys(jobList).find(e => jobList[e] === k.job);
+                const team = Object.keys(jobList).find(e => jobList[e].includes(k.job));
                 tr.innerHTML = `
                     <td id='${team}'>
                         ${k.others}
