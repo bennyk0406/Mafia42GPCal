@@ -1,38 +1,29 @@
 import { writeProductData, readProductData } from "./module.js";
 
-window.openFirstWindow = function () {
-    const bodyWidth = document.body.offsetWidth;
-    const addWindow = document.getElementById('add-window-1');
-    addWindow.setAttribute('emphasized','true');
-    addWindow.style.left = `${bodyWidth/2 - addWindow.offsetWidth/2}px`;
-    document.getElementById('add-window-2').setAttribute('emphasized','false');
-};
-
-window.openSecondWindow = function () {
-    const bodyWidth = document.body.offsetWidth;
-    const addWindow = document.getElementById('add-window-2');
-    addWindow.setAttribute('emphasized','true');
-    addWindow.style.left = `${bodyWidth/2 - addWindow.offsetWidth/2}px`;
-    document.getElementById('add-window-1').setAttribute('emphasized','false');
-    document.getElementById('add-window-3').setAttribute('emphasized','false');
-};
-
-window.openThirdWindow = function () {
-    const bodyWidth = document.body.offsetWidth;
-    const addWindow = document.getElementById('add-window-3');
-    addWindow.setAttribute('emphasized','true');
-    addWindow.style.left = `${bodyWidth/2 - addWindow.offsetWidth/2}px`;
-    document.getElementById('add-window-2').setAttribute('emphasized','false');
-};
-
-window.onCloseButtonClick = function() {
+window.closeAddWindows = function () {
     document.getElementById('add-window-1').setAttribute('emphasized','false');
     document.getElementById('add-window-2').setAttribute('emphasized','false');
     document.getElementById('add-window-3').setAttribute('emphasized','false');
 }
 
+window.openAddWindow = function (index) {
+    window.closeAddWindows();
+    const bodyWidth = document.body.offsetWidth;
+    const addWindow = document.getElementById(`add-window-${index}`);
+    addWindow.setAttribute('emphasized','true');
+    addWindow.style.left = `${bodyWidth/2 - addWindow.offsetWidth/2}px`;
+};
+
+window.openProductWindow = function (num, index) {
+    const bodyWidth = document.body.offsetWidth;
+    const productWindow = document.getElementById(`add-window-${num}-${index}`);
+    productWindow.setAttribute('emphasized','true');
+    productWindow.style.left = `${bodyWidth/2 - productWindow.offsetWidth/2}px`;
+}
+
 window.submit = function() {
     const author = document.getElementById('author').value;
+    const comment = document.getElementById('comment').value;
     const date = `${new Date().getMonth()+1}월 ${new Date().getDate()}일`;
     const amountData = [];
     const priceData = [];
@@ -58,7 +49,7 @@ window.submit = function() {
             });
         }
     }
-    writeProductData(author, date, amountData, priceData);
+    writeProductData(author, comment, date, amountData, priceData);
 }
 
 window.onload = async function () {
@@ -132,28 +123,158 @@ window.onload = async function () {
     }
 
     const productData = await readProductData();
-    console.log(productData);
     if (productData !== null) {
         const productTable = document.getElementById('product-list');
-        for (let i of productData) {
-            const tr = document.createElement('tr');
-            const amountList = i.amount;
+        for (let i = 0; i < productData.length; i++) {
+            const amountList = productData[i].amount;
             let totalAmount = 0;
+            const div1 = document.createElement('div');
+            div1.innerHTML = `
+                <div class='window-title-container'>
+                    <span class='window-title'>
+                        정보 작성
+                    </span>
+                    <p class='closeButton' onclick='closeProductWindow(${i},1)'>&times;</p>
+                </div>
+                <div id='author-container'>
+                    <p class='input-title'>
+                        작성자
+                    </p>
+                    <p id='author-output'>
+                        ${productData[i].name}
+                    </p>
+                </div>
+                <div id='comment-container'>
+                    <p class='input-title'>
+                        구매자에게 할 말
+                    </p>
+                    <p id='comment-output'>
+                        ${productData[i].comment}
+                    </p>
+                </div>
+                <div id='move'>
+                    <button class='next' onclick='openProductWindow(${i},2)'>
+                        다음
+                        &blacktriangleright;
+                    </button>
+                </div>
+            `;
+            const div2 = document.createElement('div');
+            div2.innerHTML = `
+                <div class='window-title-container'>
+                    <span class='window-title'>
+                        수량
+                    </span>
+                    <p class='closeButton' onclick='closeProductWindow(${i},2)'>&times;</p>
+                </div>
+                <table id='job-amount'>
+                    <tr>
+                        <th class='job'>
+                            직업
+                        </th>
+                        <th class='option'>
+                            잡옵
+                        </th>
+                        <th class='option'>
+                            열정
+                        </th>
+                        <th class='option'>
+                            냉정
+                        </th>
+                        <th class='option'>
+                            보험/광기
+                        </th>
+                    </tr>
+                </table>
+                <div id='move'>
+                    <button class='prev' onclick='openProductWindow(${i},1)'>
+                        &blacktriangleleft;
+                        이전
+                    </button>
+                    <button class='next' onclick='openProductWindow(${i},3)'>
+                        다음
+                        &blacktriangleright;
+                    </button>
+                </div>
+            `;
+            const div3 = document.createElement('div');
+            div3.innerHTML = `
+                <div class='window-title-container'>
+                    <span class='window-title'>
+                        판매 시세
+                    </span>
+                    <p class='closeButton' onclick='closeProductWindow(${i},3)'>&times;</p>
+                </div>
+                <table id='job-price'>
+                    <tr>
+                        <th class='job'>
+                            직업
+                        </th>
+                        <th class='option' id='others'>
+                            잡옵
+                        </th>
+                        <th class='option' id='hot'>
+                            열정
+                        </th>
+                        <th class='option' id='cool'>
+                            냉정
+                        </th>
+                        <th class='option' id='insurance'>
+                            보험/광기
+                        </th>
+                    </tr>
+                </table>
+                <div id='move'>
+                    <button class='prev' onclick='openProductWindow(${i},2)'>
+                        &blacktriangleleft;
+                        이전
+                    </button>
+                    <button class='next' onclick='closeProductWindow(${i},3)'>
+                        확인 완료
+                    </button>
+                </div>
+            `;
+
             for (let j of amountList) {
-                totalAmount += ( j.others + j.hot + j.cool + j.insurance ); 
+                totalAmount += ( j.others + j.hot + j.cool + j.insurance );
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        ${j.others}
+                    </td>
+                    <td>
+                        ${j.hot}
+                    </td>
+                    <td>
+                        ${j.cool}
+                    </td>
+                    <td>
+                        ${j.insurance}
+                    </td>
+                `;
+                div.getElementById('job-amount').appendChild(tr);
             }
+            div1.setAttribute('class', 'product-window');
+            div2.setAttribute('class', 'product-window');
+            div3.setAttribute('class', 'product-window');
+            div1.setAttribute('id', `product-window-${i}-1`);
+            div2.setAttribute('id', `product-window-${i}-2`);
+            div3.setAttribute('id', `product-window-${i}-3`);
+
+            const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>
                     ${totalAmount}
                 </td>
                 <td>
-                    ${i.name}
+                    ${productData[i].name}
                 </td>
                 <td>
-                    ${i.date}
+                    ${productData[i].date}
                 </td>
             `;
+            tr.onclick = onProductClick(i);
             productTable.appendChild(tr);
         }
-    }
+    }    
 }

@@ -73,7 +73,7 @@
                 <span class='window-title'>
                     정보 작성
                 </span>
-                <p class='closeButton' onclick='onCloseButtonClick()'>&times;</p>
+                <p class='closeButton' onclick='closeAddWindows()'>&times;</p>
             </div>
             <div id='author-container'>
                 <p class='input-title'>
@@ -88,7 +88,7 @@
                 <textarea id='comment' type='textarea' rows='10' cols='30'></textarea>
             </div>
             <div id='move'>
-                <button class='next' onclick='openSecondWindow()'>
+                <button class='next' onclick='openAddWindow(2)'>
                     다음
                     &blacktriangleright;
                 </button>
@@ -99,7 +99,7 @@
                 <span class='window-title'>
                     판매 수량 입력
                 </span>
-                <p class='closeButton' onclick='onCloseButtonClick()'>&times;</p>
+                <p class='closeButton' onclick='closeAddWindows()'>&times;</p>
             </div>
             <table id='job-amount'>
                 <tr>
@@ -121,11 +121,11 @@
                 </tr>
             </table>
             <div id='move'>
-                <button class='prev' onclick='openFirstWindow()'>
+                <button class='prev' onclick='openAddWindow(1)'>
                     &blacktriangleleft;
                     이전
                 </button>
-                <button class='next' onclick='openThirdWindow()'>
+                <button class='next' onclick='openAddWindow(3)'>
                     다음
                     &blacktriangleright;
                 </button>
@@ -136,7 +136,7 @@
                 <span class='window-title'>
                     판매 시세 입력
                 </span>
-                <p class='closeButton' onclick='onCloseButtonClick()'>&times;</p>
+                <p class='closeButton' onclick='closeAddWindows()'>&times;</p>
             </div>
             <table id='job-price'>
                 <tr>
@@ -158,7 +158,7 @@
                 </tr>
             </table>
             <div id='move'>
-                <button class='prev' onclick='openSecondWindow()'>
+                <button class='prev' onclick='openAddWindow(2)'>
                     &blacktriangleleft;
                     이전
                 </button>

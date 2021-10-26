@@ -24,7 +24,7 @@ const readProductData = async function () {
     }
 };
 
-const writeProductData = async function (name, date, amountList, priceList) {
+const writeProductData = async function (name, comment, date, amountList, priceList) {
     const db = getDatabase();
     const result = await readProductData();
     let index;
@@ -36,6 +36,7 @@ const writeProductData = async function (name, date, amountList, priceList) {
     }s
     set(ref(db, 'product/' + index), {
         name,
+        comment,
         date,
         amount: amountList,
         price: priceList,

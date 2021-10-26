@@ -120,10 +120,16 @@ table#product-list {
 
 table#product-list > th {
     width: 33%;
+    border-bottom: 1px var(--text) solid;
 }
 
 table#product-list > tr {
-    height: 40px;
+    height: 30px;
+    margin-top: 10px;
+}
+
+table#product-list > tr :hover {
+    border: 1px var(--text) solid;
 }
 
 /* footer */
@@ -147,7 +153,7 @@ svg#plus-img {
 }
 
 /* window */
-.add-window[emphasized=false] {
+.add-window[emphasized=false], .product-window[emphasized=false] {
     position: fixed;
     display: none;
     height: 90vh;
@@ -166,7 +172,7 @@ svg#plus-img {
     z-index: 1;
 }
 
-.add-window[emphasized=true] {
+.add-window[emphasized=true], .product-window[emphasized=true] {
     position: fixed;
     display: flex;
     height: 90vh;
