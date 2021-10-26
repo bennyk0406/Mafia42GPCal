@@ -254,7 +254,7 @@ window.onload = async function () {
                         ${j.insurance}
                     </td>
                 `;
-                div2.getElementById('job-amount').appendChild(tr);
+                div2.querySelector('#job-amount').appendChild(tr);
             }
 
             for (let k of priceList) {
@@ -273,7 +273,7 @@ window.onload = async function () {
                         ${k.insurance}
                     </td>
                 `;
-                div3.getElementById('job-amount').appendChild(tr);
+                div3.querySelector('#job-price').appendChild(tr);
             }
             
             div1.setAttribute('class', 'product-window');
