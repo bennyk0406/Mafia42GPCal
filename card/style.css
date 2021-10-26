@@ -128,8 +128,8 @@ table#product-list > tr {
     margin-top: 10px;
 }
 
-table#product-list > tbody > tr :hover {
-    border: 1px var(--text) solid;
+table#product-list > tbody > tr {
+    border-top: 1px var(--text) solid;
 }
 
 
