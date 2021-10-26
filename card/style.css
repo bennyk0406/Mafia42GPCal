@@ -196,7 +196,7 @@ svg#plus-img {
     overflow: hidden auto;
 }
 
-.add-window-webkit-scrollbar, .product-window-webkit-scrollbar {
+.add-window::-webkit-scrollbar, .product-window::-webkit-scrollbar {
     width: 0;
     background-color: transparent;
 }
