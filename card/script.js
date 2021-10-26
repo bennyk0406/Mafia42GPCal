@@ -295,7 +295,7 @@ window.onload = async function () {
                     ${productData[i].date}
                 </td>
             `;
-            tr.onclick = onProductClick(i);
+            tr.onclick = openProductWindow(i,1);
             productTable.appendChild(tr);
         }
     }    
