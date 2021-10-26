@@ -192,11 +192,11 @@ svg#plus-img {
     z-index: 1;
 }
 
-#add-window-2, #add-window-3 {
+.add-window, .product-window {
     overflow: hidden auto;
 }
 
-#add-window-2::-webkit-scrollbar, #add-window-3::-webkit-scrollbar {
+.add-window-webkit-scrollbar, .product-window-webkit-scrollbar {
     width: 0;
     background-color: transparent;
 }
