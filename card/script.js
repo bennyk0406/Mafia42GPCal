@@ -20,6 +20,9 @@ window.closeProductWindow = function (num, index) {
 }
 
 window.openProductWindow = function (num, index) {
+    closeProductWindow(num, 1);
+    closeProductWindow(num, 2);
+    closeProductWindow(num, 3);
     const bodyWidth = document.body.offsetWidth;
     const productWindow = document.getElementById(`product-window-${num}-${index}`);
     productWindow.setAttribute('emphasized','true');

@@ -128,10 +128,9 @@ table#product-list > tr {
     margin-top: 10px;
 }
 
-table#product-list > tr :hover {
+table#product-list > tbody > tr :hover {
     border: 1px var(--text) solid;
 }
-
 
 
 /* footer */
