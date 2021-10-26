@@ -100,7 +100,7 @@ window.onload = async function () {
             <td>
                 <input class='price' type='number' min='0' max='99' value='${price.insurance}'>
             </td>`;
-            jobPrice.appendChild(tr);
+            jobPrice.getElementByTagName('tbody')[0].appendChild(tr);
         }
     }
 
@@ -124,7 +124,7 @@ window.onload = async function () {
             <td>
                 <input class='amount' type='number' value='0' min='0' max='99'>
             </td>`;
-            jobAmount.appendChild(tr);
+            jobAmount.getElementByTagName('tbody')[0].appendChild(tr);
         }
     }
 
@@ -179,16 +179,16 @@ window.onload = async function () {
                         <th class='job'>
                             직업
                         </th>
-                        <th class='option'>
+                        <th class='others'>
                             잡옵
                         </th>
-                        <th class='option'>
+                        <th class='hot'>
                             열정
                         </th>
-                        <th class='option'>
+                        <th class='cool'>
                             냉정
                         </th>
-                        <th class='option'>
+                        <th class='insurance'>
                             보험/광기
                         </th>
                     </tr>
@@ -217,16 +217,16 @@ window.onload = async function () {
                         <th class='job'>
                             직업
                         </th>
-                        <th class='option' id='others'>
+                        <th class='others'>
                             잡옵
                         </th>
-                        <th class='option' id='hot'>
+                        <th class='hot'>
                             열정
                         </th>
-                        <th class='option' id='cool'>
+                        <th class='cool'>
                             냉정
                         </th>
-                        <th class='option' id='insurance'>
+                        <th class='insurance'>
                             보험/광기
                         </th>
                     </tr>
@@ -263,14 +263,17 @@ window.onload = async function () {
                         ${j.insurance}
                     </td>
                 `;
-                div2.querySelector('#job-amount').appendChild(tr);
+                div2.querySelector('#job-amount > tbody').appendChild(tr);
             }
 
             for (let k of priceList) {
                 const tr = document.createElement('tr');
                 const team = Object.keys(jobList).find(e => jobList[e].includes(k.job));
                 tr.innerHTML = `
-                    <td id='${team}'>
+                    <td class='${team}'>
+                        ${k.job}
+                    </td>
+                    <td>
                         ${k.others}
                     </td>
                     <td>
@@ -283,7 +286,7 @@ window.onload = async function () {
                         ${k.insurance}
                     </td>
                 `;
-                div3.querySelector('#job-price').appendChild(tr);
+                div3.querySelector('#job-price > tbody').appendChild(tr);
             }
             
             div1.setAttribute('class', 'product-window');
@@ -310,7 +313,7 @@ window.onload = async function () {
                 </td>
             `;
             tr.onclick = () => openProductWindow(i,1);
-            productTable.appendChild(tr);
+            productTable.getElementsByTagName('tbody')[0].appendChild(tr);
         }
     }    
 }

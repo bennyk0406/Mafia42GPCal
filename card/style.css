@@ -132,6 +132,8 @@ table#product-list > tr :hover {
     border: 1px var(--text) solid;
 }
 
+
+
 /* footer */
 footer {
     position: fixed;
@@ -292,6 +294,7 @@ th#insurance {
 td {
     text-align: center;
     padding: 0;
+    box-sizing: border-box;
 }
 
 .mafia, .citizen_important, .citizen_others, .cult {
