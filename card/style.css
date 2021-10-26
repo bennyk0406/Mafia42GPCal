@@ -283,11 +283,11 @@ th.job {
     width: 30%;
 }
 
-th#others, th#hot, th#cool {
+th.others, th.hot, th.cool {
     width: 16%;
 }
 
-th#insurance {
+th.insurance {
     width: 22%;
 }
 
