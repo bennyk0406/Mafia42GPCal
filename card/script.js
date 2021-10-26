@@ -14,6 +14,11 @@ window.openAddWindow = function (index) {
     addWindow.style.left = `${bodyWidth/2 - addWindow.offsetWidth/2}px`;
 };
 
+window.closeProductWindow = function (num, index) {
+    const productWindow = document.getElementById(`product-window-${num}-${index}`);
+    productWindow.setAttribute('emphasized','false');
+}
+
 window.openProductWindow = function (num, index) {
     const bodyWidth = document.body.offsetWidth;
     const productWindow = document.getElementById(`product-window-${num}-${index}`);
@@ -240,7 +245,12 @@ window.onload = async function () {
             for (let j of amountList) {
                 totalAmount += ( j.others + j.hot + j.cool + j.insurance );
                 const tr = document.createElement('tr');
+                const jobList = Object.keys(priceList).map(i => Object.keys(i))
+                const team = jobList.find(e => jobList[e] === j.job);
                 tr.innerHTML = `
+                    <td class='${team}'>
+                        ${j.job}
+                    </td>
                     <td>
                         ${j.others}
                     </td>
@@ -259,8 +269,10 @@ window.onload = async function () {
 
             for (let k of priceList) {
                 const tr = document.createElement('tr');
+                const jobList = Object.keys(priceList).map(i => Object.keys(i))
+                const team = jobList.find(e => jobList[e] === j.job);
                 tr.innerHTML = `
-                    <td>
+                    <td id='${team}'>
                         ${k.others}
                     </td>
                     <td>
