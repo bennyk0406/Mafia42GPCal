@@ -283,9 +283,9 @@ window.onload = async function () {
             div2.setAttribute('id', `product-window-${i}-2`);
             div3.setAttribute('id', `product-window-${i}-3`);
 
-            body.appendChild(div1);
-            body.appendChild(div2);
-            body.appendChild(div3);
+            document.body.appendChild(div1);
+            document.body.appendChild(div2);
+            document.body.appendChild(div3);
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
