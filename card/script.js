@@ -50,6 +50,7 @@ window.submit = function() {
         }
     }
     writeProductData(author, comment, date, amountData, priceData);
+    closeAddWindows();
 }
 
 window.onload = async function () {
@@ -127,6 +128,7 @@ window.onload = async function () {
         const productTable = document.getElementById('product-list');
         for (let i = 0; i < productData.length; i++) {
             const amountList = productData[i].amount;
+            const priceList = productData[i].price;
             let totalAmount = 0;
             const div1 = document.createElement('div');
             div1.innerHTML = `
@@ -252,8 +254,28 @@ window.onload = async function () {
                         ${j.insurance}
                     </td>
                 `;
-                div.getElementById('job-amount').appendChild(tr);
+                div2.getElementById('job-amount').appendChild(tr);
             }
+
+            for (let k of priceList) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        ${k.others}
+                    </td>
+                    <td>
+                        ${k.hot}
+                    </td>
+                    <td>
+                        ${k.cool}
+                    </td>
+                    <td>
+                        ${k.insurance}
+                    </td>
+                `;
+                div3.getElementById('job-amount').appendChild(tr);
+            }
+            
             div1.setAttribute('class', 'product-window');
             div2.setAttribute('class', 'product-window');
             div3.setAttribute('class', 'product-window');
