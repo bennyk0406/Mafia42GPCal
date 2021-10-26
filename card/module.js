@@ -33,7 +33,7 @@ const writeProductData = async function (name, comment, date, amountList, priceL
     }
     else {
         index = result.length;
-    }s
+    }
     set(ref(db, 'product/' + index), {
         name,
         comment,
