@@ -100,7 +100,7 @@ window.onload = async function () {
             <td>
                 <input class='price' type='number' min='0' max='99' value='${price.insurance}'>
             </td>`;
-            jobPrice.getElementByTagName('tbody')[0].appendChild(tr);
+            jobPrice.getElementsByTagName('tbody')[0].appendChild(tr);
         }
     }
 
@@ -124,7 +124,7 @@ window.onload = async function () {
             <td>
                 <input class='amount' type='number' value='0' min='0' max='99'>
             </td>`;
-            jobAmount.getElementByTagName('tbody')[0].appendChild(tr);
+            jobAmount.getElementsByTagName('tbody')[0].appendChild(tr);
         }
     }
 
