@@ -16,7 +16,7 @@ window.openAddWindow = function (index) {
 
 window.openProductWindow = function (num, index) {
     const bodyWidth = document.body.offsetWidth;
-    const productWindow = document.getElementById(`add-window-${num}-${index}`);
+    const productWindow = document.getElementById(`product-window-${num}-${index}`);
     productWindow.setAttribute('emphasized','true');
     productWindow.style.left = `${bodyWidth/2 - productWindow.offsetWidth/2}px`;
 }
