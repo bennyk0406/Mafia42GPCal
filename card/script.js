@@ -5,7 +5,7 @@ window.openLoginMenu = function () {
 }
 
 window.closeLoginMenu = function () {
-    document.getElementById('login').style.right = '-1000px';
+    document.getElementById('login').style.right = '-300px';
 }
 
 window.closeAddWindows = function () {

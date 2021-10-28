@@ -364,7 +364,7 @@ div#login {
     border-radius: 20px 0 0 20px;
     position: fixed;
     top: 0;
-    right: -1000px;
+    right: -300px;
     border: 1px var(--border) solid;
     transition: all 0.5s;
 }
