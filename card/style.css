@@ -354,3 +354,14 @@ div.window-title-container {
     width: 100%;
     margin: 0;
 }
+
+div#login {
+    width: 50%;
+    max-width: 300px;
+    height: 100%;
+    background-color: var(--background);
+    color: var(--text);
+    border-radius: 10px 0 0 10px;
+    position: fixed;
+    right: 0;
+}
