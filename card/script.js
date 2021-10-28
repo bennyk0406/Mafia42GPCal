@@ -4,7 +4,7 @@ window.openLoginMenu = function () {
     document.getElementById('login').style.right = '0';
 }
 
-window.openLoginMenu = function () {
+window.closeLoginMenu = function () {
     document.getElementById('login').style.right = '-1000px';
 }
 
