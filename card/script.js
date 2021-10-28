@@ -23,7 +23,7 @@ window.openAddWindow = function (index) {
             const amountList = amountInputs.map(i => parseInt(i.value));
             const priceInputs = [...document.getElementById(`price-${job}`).getElementsByClassName('price')];
             for (let j = 0; j < amountList.length; j++) {
-                if (amountList[j] === 0) {
+                if (amountList[j] === '0') {
                     priceInputs[j].value = 0;
                     priceInputs[j].disabled = true;
                 }
