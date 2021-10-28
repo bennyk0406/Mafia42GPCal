@@ -361,7 +361,9 @@ div#login {
     height: 100%;
     background-color: var(--background);
     color: var(--text);
-    border-radius: 10px 0 0 10px;
+    border-radius: 20px 0 0 20px;
     position: fixed;
+    top: 0;
     right: 0;
+    border: 1px var(--border) solid;
 }
