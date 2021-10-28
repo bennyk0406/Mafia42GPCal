@@ -1,5 +1,9 @@
 import { writeProductData, readProductData } from "./module.js";
 
+window.onClickHamburger = function () {
+    document.getElementById('login').style.right = 0;
+}
+
 window.closeAddWindows = function () {
     document.getElementById('add-window-1').setAttribute('emphasized','false');
     document.getElementById('add-window-2').setAttribute('emphasized','false');
