@@ -66,10 +66,6 @@ img#menu-img {
     right: 0;
 }
 
-svg#change-view-mode {
-    height: 40px;
-}
-
 /* main */
 main {
     color: var(--text);
