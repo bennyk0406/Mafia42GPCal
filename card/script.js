@@ -1,6 +1,6 @@
 import { writeProductData, readProductData } from "./module.js";
 
-window.onClickHamburger = function () {
+window.onHamburgerClick = function () {
     document.getElementById('login').style.right = 0;
 }
 
