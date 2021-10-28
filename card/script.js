@@ -16,6 +16,20 @@ window.closeAddWindows = function () {
 
 window.openAddWindow = function (index) {
     window.closeAddWindows();
+    if (index === 2) {
+        const job = Object.keys(jobList).flatMap(i => jobList[i]);
+        for (i of job) {
+            const amountInputs = [...document.getElementById(`amount-${job}`).getElementsByClassName('amount')];
+            const amountList = amountInputs.map(i => parseInt(i.value));
+            const priceInputs = [...document.getElementById(`price-${job}`).getElementsByClassName('price')];
+            for (let j = 0; j < amountList.length; j++) {
+                if (amountList[j] === 0) {
+                    priceInputs[j].value = 0;
+                    priceInputs[j].disabled = true;
+                }
+            }
+        }
+    }
     const bodyWidth = document.body.offsetWidth;
     const addWindow = document.getElementById(`add-window-${index}`);
     addWindow.setAttribute('emphasized','true');
@@ -65,12 +79,12 @@ window.submit = function() {
             });
         }
     }
+    //TODO if (author == '') {}
     writeProductData(author, comment, date, amountData, priceData);
     closeAddWindows();
 }
 
 window.onload = async function () {
-    //set user color theme
     /*
     const userColorTheme = localStorage.getItem('color-theme');
     const osColorTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
