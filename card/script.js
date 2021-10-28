@@ -17,8 +17,8 @@ window.closeAddWindows = function () {
 window.openAddWindow = function (index) {
     window.closeAddWindows();
     if (index === 2) {
-        const job = Object.keys(jobList).flatMap(i => jobList[i]);
-        for (i of job) {
+        const jobFlatList = Object.keys(jobList).flatMap(i => jobList[i]);
+        for (const job of jobFlatList) {
             const amountInputs = [...document.getElementById(`amount-${job}`).getElementsByClassName('amount')];
             const amountList = amountInputs.map(i => parseInt(i.value));
             const priceInputs = [...document.getElementById(`price-${job}`).getElementsByClassName('price')];
