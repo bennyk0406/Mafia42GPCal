@@ -1,7 +1,11 @@
 import { writeProductData, readProductData } from "./module.js";
 
-window.onHamburgerClick = function () {
-    document.getElementById('login').style.right = 0;
+window.openLoginMenu = function () {
+    document.getElementById('login').style.right = '0';
+}
+
+window.openLoginMenu = function () {
+    document.getElementById('login').style.right = '-1000px';
 }
 
 window.closeAddWindows = function () {
