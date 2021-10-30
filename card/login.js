@@ -6,7 +6,7 @@ const googleLogin = function () {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        console.timeLog(credential, token, user);
+        console.log(credential, token, user);
     }).catch((error) => {
         const errorCode = error.code;
         console.log(errorCode);
