@@ -70,7 +70,7 @@ const writeUserdata = async function (email, name) {
     return true;
 }
 
-const googleLogin = function () {
+const googleLogin = async function () {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then((result) => {
