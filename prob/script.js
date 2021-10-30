@@ -209,6 +209,7 @@ const onSelectAllCheckboxClick = function(level) {
 
 window.onload = function () {
     //set user color theme
+    /*
     const userColorTheme = localStorage.getItem('color-theme');
     const osColorTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     const colorTheme = userColorTheme ? userColorTheme : osColorTheme;
@@ -224,6 +225,8 @@ window.onload = function () {
         document.getElementById('header-img').setAttribute('src','../images/logo-light.png');
         document.getElementById('setting-img').setAttribute('src','../images/setting-light.png');
     }
+    */
+    document.documentElement.setAttribute('color-theme', 'dark');
 
     //move setting window
     const dragState = {
