@@ -1,5 +1,4 @@
-import { writeProductData, readProductData } from "./module.js";
-import { googleLogin } from "./login.js";
+import { writeProductData, readProductData, googleLogin } from "./module.js";
 
 window.googleLogin = function () {
     googleLogin();

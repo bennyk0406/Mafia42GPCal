@@ -1,6 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-analytics.js";
 import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
+
 const firebaseConfig = {
     apiKey: "AIzaSyDLRwSfrRvfXP9ZSip82Nf1RDCVP7VW16c",
     authDomain: "jaricom-5b794.firebaseapp.com",
@@ -44,4 +46,18 @@ const writeProductData = async function (name, comment, date, amountList, priceL
     return true;
 };
 
-export { firebaseConfig, app, analytics, writeProductData, readProductData };
+const googleLogin = function () {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider).then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        console.log(credential, token, user);
+    }).catch((error) => {
+        const errorCode = error.code;
+        console.log(errorCode);
+    });
+}
+
+export { firebaseConfig, app, analytics, writeProductData, readProductData, googleLogin };
