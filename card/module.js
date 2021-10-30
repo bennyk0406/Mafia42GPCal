@@ -70,10 +70,10 @@ const writeUserdata = async function (email, name) {
     return true;
 }
 
-const googleLogin = async function () {
+const googleLogin = function () {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then((result) => {
+    signInWithPopup(auth, provider).then(async (result) => {
         const email = result.user.email;
         const userData = await readUserData();
         if (userData.email === undefined) {
