@@ -17,7 +17,7 @@ const analytics = getAnalytics(app);
 
 const readProductData = async function () {
     const dbRef = ref(getDatabase());
-    const snapshot = await get(child(dbRef, `product/`));
+    const snapshot = await get(child(dbRef, 'product/'));
     if (snapshot.exists()) {
         return snapshot.val();
     }
@@ -46,6 +46,26 @@ const writeProductData = async function (name, comment, date, amountList, priceL
     return true;
 };
 
+const readUserData = async function () {
+    const dbRef = ref(getDatabase());
+    const snapshot = await get(child(dbRef, 'user/'));
+    if (snapshot.exists()) {
+        return snapshot.val();
+    }
+    else {
+        return null;
+    }
+}
+
+const writeUserdata = async function (email, name) {
+    const db = getDatabase();
+    const result = await readUserData();
+    set(ref(db, 'user/' + email), {
+        name
+    });
+    return true;
+}
+
 const googleLogin = function () {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
@@ -53,7 +73,8 @@ const googleLogin = function () {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        console.log(credential, token, user);
+        const email = user.email;
+        console.log(email);
     }).catch((error) => {
         const errorCode = error.code;
         console.log(errorCode);
