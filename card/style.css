@@ -115,12 +115,12 @@ table#product-list {
     border-collapse: collapse;
 }
 
-table#product-list > th {
+table#product-list th {
     width: 33%;
     border-bottom: 1px var(--text) solid;
 }
 
-table#product-list > tr {
+table#product-list tr {
     height: 30px;
     margin-top: 10px;
 }
