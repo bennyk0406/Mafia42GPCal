@@ -8,10 +8,19 @@ window.closeLoginMenu = function () {
     document.getElementById('login').style.right = '-300px';
 }
 
-window.onSignIn = function (user) {
-    const profile = user.getBasicProfile();
+window.init = function () {
+    gapi.load('auth2', () => {
+        gapid.auth2.init();
+        const options = new gapi.auth2.SigninOptionsBuilder();
+		options.setPrompt('select_account');
+        options.setScope('profile');
+    });
+}
+
+window.onSignIn = function (googleUser) {
+    const profile = googleUser.getBasicProfile();
     const id = profile.getId();
-    const idToken = user.getAuthResponse().id_token;
+    const idToken = googleUser.getAuthResponse().id_token;
     console.log(id, idToken);
 }
 

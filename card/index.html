@@ -15,8 +15,6 @@
         <meta name="keywords" content=" 마피아42, 상자깡, 뽑기, 확률, 마피아, 자리, 자리닷컴, 나성수, Mafia42, TEAM42, 떡치기">
         <meta name="twitter:card" content="summary_large_image">
         <meta name='description' content='자리닷컴에서 마피아42의 실제 뽑기 확률을 계산해 보세요!' />
-        <meta name="google-signin-scope" content="profile email">
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <meta name ="google-signin-client_id" content="792858715618-ts3sob4du44ib0ja6a5dt61ldco4ci58.apps.googleusercontent.com">
         <link rel='canonical' href='https://자리.com/' >
         <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
@@ -27,6 +25,7 @@
         <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap'>
     </head>    
     <body>
+        <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
         <script type='module' src='./module.js'></script>
         <script src='./data/price.js'></script>
         <script type='module' src='./script.js'></script>
@@ -171,7 +170,7 @@
                 </button>
             </div>
         </div>
-        <div class='g-signin2' data-onsuccess='onSingIn' id='login'>
+        <div class='g-signin2' data-onsuccess='onSignIn' id='login'>
             구글 로그인
         </div>
     </body>
