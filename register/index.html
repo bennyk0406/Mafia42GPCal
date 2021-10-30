@@ -8,7 +8,7 @@
         <meta property='og:type' content='website' />
         <meta property='og:url' content='https://자리.com/' />
         <meta name="naver-site-verification" content="03007eb0228b0044dcf7cee7c36400f89ab170e8" />
-        <meta property='og:image' content='./images/thumbnail.png' />
+        <meta property='og:image' content='../images/thumbnail.png' />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1280" />
         <meta property="og:image:height" content="1280" />
@@ -16,14 +16,17 @@
         <meta name="keywords" content=" 마피아42, 상자깡, 뽑기, 확률, 마피아, 자리, 자리닷컴, 나성수, Mafia42, TEAM42, 떡치기">
         <meta name="twitter:card" content="summary_large_image">
         <meta name='description' content='자리닷컴에서 마피아42의 실제 뽑기 확률을 계산해 보세요!' />
+        <meta name ="google-signin-client_id" content="792858715618-ts3sob4du44ib0ja6a5dt61ldco4ci58.apps.googleusercontent.com">
         <link rel='canonical' href='https://자리.com/' >
-        <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+        <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
         <link rel='stylesheet' href='./style.css'>
         <link rel='preconnect' href='https://fonts.googleapis.com'>
         <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
         <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap'>
-    </head>    
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap'>
+    </head>
     <body>
+        <script src='script.js'></script>
         <header>
             <div>
                 <img id='header-img' src='../images/logo-dark.png' alt='헤더 이미지' onclick='location.href="../"'/>
@@ -36,23 +39,15 @@
             </div>
         </header>
         <main>
-            <img id='logo-img' src='./images/logo-dark.png' alt='로고 이미지' />
-            <p id='subtitle'>
-                자리닷컴
+            <p>
+                이메일
             </p>
-            <button id='prob' onclick='location.href="./prob"'>
-                <img id='prob' src='./images/prob.png' alt='계산기 이미지' />
-            </button>
-            <p class='button-description'>
-                뽑기권 확률 계산기
+            <p>
+                닉네임
             </p>
-            <button id='card' onclick='location.href="./card"'>
-                <img id='card' src='./images/card.png' alt='카드 이미지' />
-            </button>
-            <p class='button-description'>
-                카드 교환소
-            </p>
+            <input id='nickname' type='text' maxlength='6'>
+            <input type='button' value='승인 요청'>
+            </input>
         </main>
-        <script src='./script.js'></script>
     </body>
 </html>

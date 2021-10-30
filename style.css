@@ -22,7 +22,7 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
     overflow: hidden;
 }
-header {
+body > header {
     position: fixed;
     height: 40px;
     width: 100%;
@@ -35,6 +35,9 @@ header {
     right: 0;
     border-bottom: 1px var(--border) solid;
     text-align: right;
+    display: grid;
+    grid-template-columns: 1fr 40px 50px;
+    grid-template-rows: 40px;
 }
 
 img#header-img {

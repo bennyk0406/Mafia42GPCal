@@ -1,0 +1,66 @@
+:root[color-theme='light'] {
+    --background: white;
+    --border: black;
+    --text: black;
+}
+
+:root[color-theme='dark'] {
+    --background: rgb(30,30,30);
+    --border: black;
+    --text: white;
+}
+
+html {
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+body {
+    padding-top: 40px;
+    margin: 0;
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body > header {
+    position: fixed;
+    height: 40px;
+    width: 100%;
+    vertical-align: middle;
+    background-color: var(--background);
+    color: var(--text);
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    border-bottom: 1px var(--border) solid;
+    text-align: right;
+    display: grid;
+    grid-template-columns: 1fr 40px 50px;
+    grid-template-rows: 40px;
+}
+
+img#header-img {
+    position: absolute;
+    height: 50%;
+    margin: auto auto auto 10px;
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+}
+
+img#menu-img {
+    position: absolute;
+    height: 75%;
+    margin: auto 10px auto auto;
+    top: 0; 
+    bottom: 0; 
+    right: 0;
+}

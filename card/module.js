@@ -46,6 +46,10 @@ const writeProductData = async function (name, comment, date, amountList, priceL
     return true;
 };
 
+const register = function (email) {
+    location.href = `./register?email=${email}`;
+}
+
 const readUserData = async function () {
     const dbRef = ref(getDatabase());
     const snapshot = await get(child(dbRef, 'user/'));
@@ -70,11 +74,11 @@ const googleLogin = function () {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-        const email = user.email;
-        console.log(email);
+        const email = result.user.email;
+        const userData = await readUserData();
+        if (userData.email === undefined) {
+            register(email);
+        }
     }).catch((error) => {
         const errorCode = error.code;
         console.log(errorCode);
