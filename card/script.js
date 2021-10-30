@@ -8,6 +8,13 @@ window.closeLoginMenu = function () {
     document.getElementById('login').style.right = '-300px';
 }
 
+window.onSignIn = function (user) {
+    const profile = user.getBasicProfile();
+    const id = profile.getId();
+    const idToken = user.getAuthResponse().id_token;
+    console.log(id, idToken);
+}
+
 window.closeAddWindows = function () {
     document.getElementById('add-window-1').setAttribute('emphasized','false');
     document.getElementById('add-window-2').setAttribute('emphasized','false');
