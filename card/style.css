@@ -29,7 +29,7 @@ body {
 }
 
 /* header */
-body > header {
+body>header {
     position: fixed;
     height: 40px;
     width: 100%;
@@ -81,7 +81,7 @@ section {
     margin: 0 auto;
 }
 
-section > header {
+section>header {
     display: flex;
     align-items: top;
 }
