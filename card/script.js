@@ -1,4 +1,9 @@
 import { writeProductData, readProductData } from "./module.js";
+import { googleLogin } from "./login.js";
+
+window.googleLogin = function () {
+    googleLogin();
+}
 
 window.openLoginMenu = function () {
     document.getElementById('login').style.right = '0';
