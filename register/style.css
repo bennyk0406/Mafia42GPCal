@@ -64,3 +64,12 @@ img#menu-img {
     bottom: 0; 
     right: 0;
 }
+
+main {
+    color: var(--text);
+    background-color: var(--background);
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 10px;
+}
