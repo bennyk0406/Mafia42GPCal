@@ -47,7 +47,7 @@ const writeProductData = async function (name, comment, date, amountList, priceL
 };
 
 const register = function (email) {
-    location.href = `./register?email=${email}`;
+    location.href = `../register?email=${email}`;
 }
 
 const readUserData = async function () {
