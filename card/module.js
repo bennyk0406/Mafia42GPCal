@@ -76,12 +76,11 @@ const googleLogin = function () {
     signInWithPopup(auth, provider).then(async (result) => {
         const email = result.user.email;
         const userData = await readUserData();
-        if (userData.email === undefined) {
+        if (userData === null) {
             register(email);
         }
     }).catch((error) => {
-        const errorCode = error.code;
-        console.log(errorCode);
+        console.log(error);
     });
 }
 
