@@ -151,7 +151,7 @@ svg#plus-img {
 }
 
 /* window */
-.add-window[emphasized=false], .product-window[emphasized=false] {
+.add-window[emphasized=false], .product-window[emphasized=false], .add-window[emphasized=undefined], .product-window[emphasized=undefined] {
     position: fixed;
     display: none;
     height: 90vh;
