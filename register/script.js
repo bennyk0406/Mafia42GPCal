@@ -26,7 +26,7 @@ window.readRegisterData = async function (email) {
 }
 
 window.writeRegisterData = async function () {
-    const email = location.href.split("=")[1];
+    const email = location.href.split("=")[1].replace(/\./g, "");
     const db = getDatabase();
     const userData = await readRegisterData(email);
     if (userData !== null) {
