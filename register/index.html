@@ -26,7 +26,7 @@
         <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap'>
     </head>
     <body>
-        <script type='module' src='script.js'></script>
+        <script type='module' src='./script.js'></script>
         <header>
             <div>
                 <img id='header-img' src='../images/logo-dark.png' alt='헤더 이미지' onclick='location.href="../"'/>
@@ -49,7 +49,9 @@
                 닉네임
             </p>
             <input id='nickname' type='text' maxlength='6'>
-            <input type='button' value='승인 요청' onclick='submit()'>
+            <div id='button-container'>
+                <input type='button' value='승인 요청' onclick='writeRegisterData()'>
+            </div>
             </input>
         </main>
     </body>

@@ -14,12 +14,38 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-window.submit = function () {
-    
+const readRegisterData = async function (email) {
+    const dbRef = ref(getDatabase());
+    const snapshot = await get(child(dbRef, `register/${email}`));
+    if (snapshot.exists()) {
+        return snapshot.val();
+    }
+    else {
+        return null;
+    }
 }
 
-window.onload = function () {
+const writeRegisterData = async function () {
+    const email = location.href.split("=")[1];
+    const db = getDatabase();
+    const userData = await readRegisterData(email);
+    if (userData !== null) {
+        alert('이미 회원가입 신청이 되어있습니다.');
+        return;
+    }
+    const nickname = document.getElementById('nickname').value;
+    if (nickname === '') {
+        alert('인게임 닉네임을 입력해주세요!');
+    }
+    set(ref(db, `register/${email}`), {
+        nickname
+    });
+}
+
+window.onload = async function () {
     document.documentElement.setAttribute('color-theme', 'dark');
     const email = location.href.split("=")[1];
     document.getElementById('email').innerText = email;
 }
+
+export { readRegisterData, writeRegisterData };

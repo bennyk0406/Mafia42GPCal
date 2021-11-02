@@ -70,6 +70,16 @@ main {
     background-color: var(--background);
     width: 100%;
     min-height: 100vh;
+    padding: 0 10px;
+}
+
+button {
     margin: 0;
-    padding-top: 10px;
+    padding: 0;
+    background: transparent;
+    color: var(--text);
+}
+
+p {
+    margin: 0;
 }

@@ -1,5 +1,7 @@
 import { writeProductData, readProductData, googleLogin } from "./module.js";
 
+const ability = ["others", "hot", "cool", "insurance"];
+
 window.googleLogin = function () {
     googleLogin();
 }
@@ -36,16 +38,22 @@ window.closeAddWindows = function () {
 
 window.openAddWindow = function (index) {
     window.closeAddWindows();
-    if (index === 2) {
-        const jobFlatList = Object.keys(jobList).flatMap(i => jobList[i]);
+    if (index === 3) {
+        const jobFlatList = Object.keys(teamList).flatMap(i => teamList[i]);
         for (const job of jobFlatList) {
             const amountInputs = [...document.getElementById(`amount-${job}`).getElementsByClassName('amount')];
             const amountList = amountInputs.map(i => parseInt(i.value));
             const priceInputs = [...document.getElementById(`price-${job}`).getElementsByClassName('price')];
             for (let j = 0; j < amountList.length; j++) {
-                if (amountList[j] === '0') {
+                if (amountList[j] === 0) {
                     priceInputs[j].value = 0;
                     priceInputs[j].disabled = true;
+                    priceInputs[j].style.color = 'rgb(128,128,128)';
+                }
+                else {
+                    priceInputs[j].value = priceList[job]
+                    priceInputs[j].disabled = false;
+                    priceInputs[j].style.color = document.body.style.getPropertyValue("--text");
                 }
             }
         }
@@ -77,27 +85,25 @@ window.submit = function() {
     const date = `${new Date().getMonth()+1}월 ${new Date().getDate()}일`;
     const amountData = [];
     const priceData = [];
-    for (let team in priceList) {
-        for (let job in priceList[team]) {
-            const amountInputs = [...document.getElementById(`amount-${job}`).getElementsByClassName('amount')];
-            const amountList = amountInputs.map(i => parseInt(i.value));
-            amountData.push({
-                job,
-                others: amountList[0],
-                hot: amountList[1],
-                cool: amountList[2],
-                insurance: amountList[3]
-            });
-            const priceInputs = [...document.getElementById(`price-${job}`).getElementsByClassName('price')];
-            const priceList = priceInputs.map(i => parseInt(i.value));
-            priceData.push({
-                job,
-                others: priceList[0],
-                hot: priceList[1],
-                cool: priceList[2],
-                insurance: priceList[3]
-            });
-        }
+    for (let job in priceList) {
+        const amountInputs = [...document.getElementById(`amount-${job}`).getElementsByClassName('amount')];
+        const amountValues = amountInputs.map(i => parseInt(i.value));
+        amountData.push({
+            job,
+            others: amountValues[0],
+            hot: amountValues[1],
+            cool: amountValues[2],
+            insurance: amountValues[3]
+        });
+        const priceInputs = [...document.getElementById(`price-${job}`).getElementsByClassName('price')];
+        const priceValues = priceInputs.map(i => parseInt(i.value));
+        priceData.push({
+            job,
+            others: priceValues[0],
+            hot: priceValues[1],
+            cool: priceValues[2],
+            insurance: priceValues[3]
+        });
     }
     //TODO if (author == '') {}
     writeProductData(author, comment, date, amountData, priceData);
@@ -125,52 +131,50 @@ window.onload = async function () {
     document.documentElement.setAttribute('color-theme', 'dark');
 
     const jobPrice = document.getElementById('job-price');
-    for (let team in priceList) {
-        for (let job in priceList[team]) {
-            const price = priceList[team][job].price;
-            const tr = document.createElement('tr');
-            tr.setAttribute('id', `price-${job}`);
-            tr.innerHTML = `<td class='${team}'>
-                ${job}
-            </td>
-            <td>
-                <input class='price' type='number' min='0' max='99' value='${price.others}'>
-            </td>
-            <td>
-                <input class='price' type='number' min='0' max='99' value='${price.hot}'>
-            </td>
-            <td>
-                <input class='price' type='number' min='0' max='99' value='${price.cool}'>
-            </td>
-            <td>
-                <input class='price' type='number' min='0' max='99' value='${price.insurance}'>
-            </td>`;
-            jobPrice.getElementsByTagName('tbody')[0].appendChild(tr);
-        }
+    for (let job in priceList) {
+        const team = Object.keys(teamList).find(i => teamList[i].some(e => e === job));
+        const price = priceList[job];
+        const tr = document.createElement('tr');
+        tr.setAttribute('id', `price-${job}`);
+        tr.innerHTML = `<td class='${team}'>
+            ${job}
+        </td>
+        <td>
+            <input class='price' type='number' min='0' max='99' value='${price.others}'>
+        </td>
+        <td>
+            <input class='price' type='number' min='0' max='99' value='${price.hot}'>
+        </td>
+        <td>
+            <input class='price' type='number' min='0' max='99' value='${price.cool}'>
+        </td>
+        <td>
+            <input class='price' type='number' min='0' max='99' value='${price.insurance}'>
+        </td>`;
+        jobPrice.getElementsByTagName('tbody')[0].appendChild(tr);
     }
 
     const jobAmount = document.getElementById('job-amount');
-    for (let team in priceList) {
-        for (let job in priceList[team]) {
-            const tr = document.createElement('tr');
-            tr.setAttribute('id', `amount-${job}`);
-            tr.innerHTML = `<td class='${team}'>
-                ${job}
-            </td>
-            <td>
-                <input class='amount' type='number' value='0' min='0' max='99'>
-            </td>
-            <td>
-                <input class='amount' type='number' value='0' min='0' max='99'>
-            </td>
-            <td>
-                <input class='amount' type='number' value='0' min='0' max='99'>
-            </td>
-            <td>
-                <input class='amount' type='number' value='0' min='0' max='99'>
-            </td>`;
-            jobAmount.getElementsByTagName('tbody')[0].appendChild(tr);
-        }
+    for (let job in priceList) {
+        const team = Object.keys(teamList).find(i => teamList[i].some(e => e === job));
+        const tr = document.createElement('tr');
+        tr.setAttribute('id', `amount-${job}`);
+        tr.innerHTML = `<td class='${team}'>
+            ${job}
+        </td>
+        <td>
+            <input class='amount' type='number' value='0' min='0' max='99'>
+        </td>
+        <td>
+            <input class='amount' type='number' value='0' min='0' max='99'>
+        </td>
+        <td>
+            <input class='amount' type='number' value='0' min='0' max='99'>
+        </td>
+        <td>
+            <input class='amount' type='number' value='0' min='0' max='99'>
+        </td>`;
+        jobAmount.getElementsByTagName('tbody')[0].appendChild(tr);
     }
 
     const productData = await readProductData();
@@ -290,7 +294,7 @@ window.onload = async function () {
             for (let j of amountList) {
                 totalAmount += ( j.others + j.hot + j.cool + j.insurance );
                 const tr = document.createElement('tr');
-                const team = Object.keys(jobList).find(e => jobList[e].includes(j.job));
+                const team = Object.keys(teamList).find(e => teamList[e].includes(j.job));
                 tr.innerHTML = `
                     <td class='${team}'>
                         ${j.job}
@@ -313,7 +317,7 @@ window.onload = async function () {
 
             for (let k of priceList) {
                 const tr = document.createElement('tr');
-                const team = Object.keys(jobList).find(e => jobList[e].includes(k.job));
+                const team = Object.keys(teamList).find(e => teamList[e].includes(k.job));
                 tr.innerHTML = `
                     <td class='${team}'>
                         ${k.job}
