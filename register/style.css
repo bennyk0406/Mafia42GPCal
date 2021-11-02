@@ -70,16 +70,24 @@ main {
     background-color: var(--background);
     width: 100%;
     min-height: 100vh;
-    padding: 0 10px;
+    padding: 10px;
 }
 
-button {
+#button {
     margin: 0;
     padding: 0;
     background: transparent;
     color: var(--text);
 }
 
+input {
+    display: inline-block;
+}
+
 p {
     margin: 0;
+}
+
+p.title {
+    margin-top: 10px;
 }

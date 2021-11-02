@@ -14,7 +14,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-const readRegisterData = async function (email) {
+window.readRegisterData = async function (email) {
     const dbRef = ref(getDatabase());
     const snapshot = await get(child(dbRef, `register/${email}`));
     if (snapshot.exists()) {
@@ -25,7 +25,7 @@ const readRegisterData = async function (email) {
     }
 }
 
-const writeRegisterData = async function () {
+window.writeRegisterData = async function () {
     const email = location.href.split("=")[1];
     const db = getDatabase();
     const userData = await readRegisterData(email);
@@ -47,5 +47,3 @@ window.onload = async function () {
     const email = location.href.split("=")[1];
     document.getElementById('email').innerText = email;
 }
-
-export { readRegisterData, writeRegisterData };
