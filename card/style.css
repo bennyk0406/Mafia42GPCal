@@ -15,7 +15,7 @@ html {
 }
 
 body {
-    padding: 40px 0 60px 0;
+    padding-top: 40px;
     margin: 0;
     -ms-user-select: none; 
     -moz-user-select: -moz-none;
@@ -71,8 +71,7 @@ main {
     width: 100%;
     min-height: 100vh;
     margin: 0;
-    padding-top: 10px;
-    overflow: auto;
+    padding: 10px 0 60px;
 }
 
 section {
