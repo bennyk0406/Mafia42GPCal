@@ -82,8 +82,13 @@ section {
 }
 
 section>header {
+    padding-top: 10px;
     display: flex;
     align-items: top;
+}
+
+article {
+    padding-bottom: 10px;
 }
 
 div#card-img-container {
