@@ -43,6 +43,7 @@ body>header {
     display: grid;
     grid-template-columns: 1fr 40px 50px;
     grid-template-rows: 40px;
+    z-index: 2;
 }
 
 img#header-img {
@@ -67,6 +68,7 @@ img#menu-img {
 /* main */
 main {
     color: var(--text);
+    position: absolute;
     background-color: var(--background);
     width: 100%;
     min-height: 100vh;
@@ -141,6 +143,7 @@ footer {
     vertical-align: middle;
     display: flex;
     align-items: center;
+    z-index: 2;
 }
 
 svg#plus-img {
