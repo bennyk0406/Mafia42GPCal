@@ -26,7 +26,6 @@
         <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap'>
     </head>    
     <body>
-        <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
         <script type='module' src='./module.js'></script>
         <script src='./data/price.js'></script>
         <script type='module' src='./script.js'></script>
@@ -171,8 +170,10 @@
                 </button>
             </div>
         </div>
-        <div onclick='googleLogin()' id='login'>
-            구글 로그인
+        <div id='login-container'>
+            <div id='google-login' onclick='googleLogin()'>
+                구글 로그인
+            </div>
         </div>
     </body>
 </html>

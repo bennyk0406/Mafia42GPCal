@@ -1,33 +1,16 @@
 import { writeProductData, readProductData, googleLogin } from "./module.js";
 
-const ability = ["others", "hot", "cool", "insurance"];
-
+const ability = ["others", "hot", "cool", "insurance"]
 window.googleLogin = function () {
     googleLogin();
 }
 
 window.openLoginMenu = function () {
-    document.getElementById('login').style.right = '0';
+    document.getElementById('login-container').style.right = '0';
 }
 
 window.closeLoginMenu = function () {
-    document.getElementById('login').style.right = '-300px';
-}
-
-window.init = function () {
-    gapi.load('auth2', () => {
-        gapi.auth2.init();
-        const options = new gapi.auth2.SigninOptionsBuilder();
-		options.setPrompt('select_account');
-        options.setScope('profile');
-    });
-}
-
-window.onSignIn = function (googleUser) {
-    const profile = googleUser.getBasicProfile();
-    const id = profile.getId();
-    const idToken = googleUser.getAuthResponse().id_token;
-    console.log(id, idToken);
+    document.getElementById('login-container').style.right = '-300px';
 }
 
 window.closeAddWindows = function () {
@@ -51,7 +34,7 @@ window.openAddWindow = function (index) {
                     priceInputs[j].style.color = 'rgb(128,128,128)';
                 }
                 else {
-                    priceInputs[j].value = priceList[job]
+                    priceInputs[j].value = priceList[job][ability[j]];
                     priceInputs[j].disabled = false;
                     priceInputs[j].style.color = document.body.style.getPropertyValue("--text");
                 }

@@ -12,7 +12,6 @@
 
 html {
     min-height: 100vh;
-    overflow: hidden;
 }
 
 body {
@@ -24,7 +23,6 @@ body {
     -webkit-user-select: none;
     user-select: none;
     min-height: 100vh;
-    overflow: hidden;
     font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -74,6 +72,7 @@ main {
     min-height: 100vh;
     margin: 0;
     padding-top: 10px;
+    overflow: auto;
 }
 
 section {
@@ -351,7 +350,7 @@ div.window-title-container {
     margin: 0;
 }
 
-div#login {
+div#login-container {
     width: 50%;
     max-width: 300px;
     height: 100%;
@@ -363,4 +362,18 @@ div#login {
     right: -300px;
     border: 1px var(--border) solid;
     transition: all 0.5s;
+    display: flex;
+    align-items: center;
+}
+
+div#google-login {
+    width: 90%;
+    height: 50px;
+    vertical-align: middle;
+    border-radius: 10px;
+    border: 1px var(--border) solid;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
 }
