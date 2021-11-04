@@ -84,4 +84,32 @@ const googleLogin = function () {
     });
 }
 
+window.readRegisterData = async function (email) {
+    const dbRef = ref(getDatabase());
+    const snapshot = await get(child(dbRef, `register/${email}`));
+    if (snapshot.exists()) {
+        return snapshot.val();
+    }
+    else {
+        return null;
+    }
+}
+
+window.writeRegisterData = async function () {
+    const email = location.href.split("=")[1].replace(/\./g, "");
+    const db = getDatabase();
+    const userData = await readRegisterData(email);
+    if (userData !== null) {
+        alert('이미 회원가입 신청이 되어있습니다.');
+        return;
+    }
+    const nickname = document.getElementById('nickname').value;
+    if (nickname === '') {
+        alert('인게임 닉네임을 입력해주세요!');
+    }
+    set(ref(db, `register/${email}`), {
+        nickname
+    });
+}
+
 export { firebaseConfig, app, analytics, writeProductData, readProductData, googleLogin };

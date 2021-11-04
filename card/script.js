@@ -1,4 +1,4 @@
-import { writeProductData, readProductData, googleLogin } from "./module.js";
+import { writeProductData, readProductData, googleLogin } from "../login.js";
 
 const ability = ["others", "hot", "cool", "insurance"]
 window.googleLogin = function () {
