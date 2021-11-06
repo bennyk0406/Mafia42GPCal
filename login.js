@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-analytics.js";
 import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
+import { getAuth, getRedirectResult } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDLRwSfrRvfXP9ZSip82Nf1RDCVP7VW16c",
@@ -14,6 +14,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const auth = getAuth();
 
 const readProductData = async function () {
     const dbRef = ref(getDatabase());
@@ -72,8 +73,7 @@ const writeUserdata = async function (email, name) {
 
 const googleLogin = function () {
     const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then(async (result) => {
+    getRedirectResult(auth).then(async (result) => {
         const email = result.user.email;
         const userData = await readUserData();
         if (userData === null) {
@@ -84,7 +84,7 @@ const googleLogin = function () {
     });
 }
 
-window.readRegisterData = async function (email) {
+const readRegisterData = async function (email) {
     const dbRef = ref(getDatabase());
     const snapshot = await get(child(dbRef, `register/${email}`));
     if (snapshot.exists()) {
@@ -95,7 +95,7 @@ window.readRegisterData = async function (email) {
     }
 }
 
-window.writeRegisterData = async function () {
+const writeRegisterData = async function () {
     const email = location.href.split("=")[1].replace(/\./g, "");
     const db = getDatabase();
     const userData = await readRegisterData(email);
@@ -112,4 +112,4 @@ window.writeRegisterData = async function () {
     });
 }
 
-export { firebaseConfig, app, analytics, writeProductData, readProductData, googleLogin };
+export { writeProductData, readProductData, writeUserdata, readUserData, writeRegisterData, readRegisterData, googleLogin };
