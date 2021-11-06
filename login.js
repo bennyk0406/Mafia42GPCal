@@ -74,7 +74,7 @@ const writeUserdata = async function (email, name) {
 }
 
 const readAllRegisterData = async function () {
-    const db = getDatabase();
+    const dbRef = ref(getDatabase());
     const snapshot = await get(child(dbRef, 'register/'));
     if (snapshot.exists()) {
         return snapshot.val();
