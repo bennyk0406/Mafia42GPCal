@@ -73,7 +73,7 @@ const writeUserdata = async function (email, name) {
 }
 
 const googleLogin = function () {
-    signInWithRedirect(auth).then(async (result) => {
+    signInWithRedirect(auth, provider).then(async (result) => {
         console.log(result);
         const email = result.user.email;
         const userData = await readUserData();
