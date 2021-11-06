@@ -6,6 +6,7 @@ import { getAuth, signInWithRedirect, GoogleAuthProvider } from "https://www.gst
 const firebaseConfig = {
     apiKey: "AIzaSyDLRwSfrRvfXP9ZSip82Nf1RDCVP7VW16c",
     authDomain: "jaricom-5b794.firebaseapp.com",
+    databaseURL: "https://jaricom-5b794-default-rtdb.firebaseio.com",
     projectId: "jaricom-5b794",
     storageBucket: "jaricom-5b794.appspot.com",
     messagingSenderId: "578428983641",
