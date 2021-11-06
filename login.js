@@ -73,6 +73,17 @@ const writeUserdata = async function (email, name) {
     return true;
 }
 
+const readAllRegisterData = async function () {
+    const db = getDatabase();
+    const snapshot = await get(child(dbRef, 'register/'));
+    if (snapshot.exists()) {
+        return snapshot.val();
+    }
+    else {
+        return null;
+    }
+}
+
 const googleLogin = function () {
     signInWithPopup(auth, provider).then(async (result) => {
         console.log(result);
@@ -114,4 +125,4 @@ const writeRegisterData = async function () {
     });
 }
 
-export { writeProductData, readProductData, writeUserdata, readUserData, writeRegisterData, readRegisterData, googleLogin };
+export { writeProductData, readProductData, writeUserdata, readUserData, writeRegisterData, readRegisterData, googleLogin, readAllRegisterData };
