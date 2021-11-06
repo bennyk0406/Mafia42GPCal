@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-analytics.js";
 import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
-import { getAuth, getRedirectResult } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
+import { getAuth, signInWithRedirect } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDLRwSfrRvfXP9ZSip82Nf1RDCVP7VW16c",
@@ -15,6 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth();
+const provider = new GoogleAuthProvider();
 
 const readProductData = async function () {
     const dbRef = ref(getDatabase());
@@ -72,8 +73,7 @@ const writeUserdata = async function (email, name) {
 }
 
 const googleLogin = function () {
-    const auth = getAuth();
-    getRedirectResult(auth).then(async (result) => {
+    signInWithRedirect(auth).then(async (result) => {
         console.log(result);
         const email = result.user.email;
         const userData = await readUserData();
