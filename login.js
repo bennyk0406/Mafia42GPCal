@@ -89,7 +89,7 @@ const googleLogin = function () {
         console.log(result);
         const email = result.user.email;
         const userData = await readUserData();
-        const accessToken = GoogleAuthProvider.credentialFromResult(result).accessToken;
+        const accessToken = GoogleAuthProvider.credentialFromResult(result)//.accessToken;
         console.log(accessToken);
         if (userData === null) {
             //register(email);
