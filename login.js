@@ -90,7 +90,7 @@ const googleLogin = function () {
         const email = result.user.email;
         const userData = await readUserData();
         if (userData === null) {
-            register(email);
+            //register(email);
         }
     }).catch((error) => {
         console.log(error);
