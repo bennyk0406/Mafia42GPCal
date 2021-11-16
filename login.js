@@ -89,7 +89,7 @@ const googleLogin = function () {
         console.log(result);
         const email = result.user.email;
         const userData = await readUserData();
-        console.log(user.uid);
+        console.log(result.user.uid);
         if (userData === null) {
             //register(email);
         }
