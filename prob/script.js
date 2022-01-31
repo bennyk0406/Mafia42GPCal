@@ -11,11 +11,6 @@ let songpyeonAmount = {
 };
 
 const onCheckboxClick = function(level) {
-    const pinkAmount = document.getElementById('pink-amount').value;
-    const songgiAmount = document.getElementById('songgi-amount').value;
-    const flowerAmount = document.getElementById('flower-amount').value;
-    const pigAmount = document.getElementById('pig-amount').value;
-    const addedProbability = 2.5 * pinkAmount + 5 * songgiAmount + 10 * flowerAmount + 20 * pigAmount;
     const checkList = [...document.getElementsByClassName(`${level}-item-checkbox`)].map(e => e.checked);
     const selectAllCheckbox = document.getElementsByClassName('select-all-checkbox')[0];
     selectAllCheckbox.checked = checkList.every(e => e);
@@ -31,9 +26,6 @@ const onCheckboxClick = function(level) {
     }
     for (let j = 0; j < itemList.length; j++) {
         itemList[j].probability *= 100 / (100 - checkedProbability); 
-    }
-    for (let k = 0; k < equipList.length; k++) {
-        equipList[k].probability += equipList[k].probability * addedProbability / 100;
     }
     const equipItemTotalProbability = equipList.map(i => i.probability).reduce((a,b) => a+b);
     const otherItemTotalProbability = otherList.map(j => j.probability).reduce((c,d) => c+d);
