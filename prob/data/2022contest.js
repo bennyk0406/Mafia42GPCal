@@ -176,7 +176,7 @@ const itemData = {
             "isEquipItem": true
         },
         {
-            "name": "신원미상의 일지",
+            "name": "신원미상의 전투 일지",
             "probability": 1,
             "isEquipItem": true
         },
@@ -413,7 +413,7 @@ const itemData = {
             "isEquipItem": true
         },
         {
-            "name": "신원미상의 일지",
+            "name": "신원미상의 전투 일지",
             "probability": 0.15,
             "isEquipItem": true
         },
