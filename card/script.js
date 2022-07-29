@@ -1,351 +1,235 @@
-import { writeProductData, readProductData, googleLogin } from "../login.js";
+const imageUrlList = [
+    '../images/low.png',
+    '../images/high.png'
+];
 
-const ability = ["others", "hot", "cool", "insurance"]
-window.googleLogin = function () {
-    googleLogin();
-}
-
-window.openLoginMenu = function () {
-    document.getElementById('login-container').style.right = '0';
-}
-
-window.closeLoginMenu = function () {
-    document.getElementById('login-container').style.right = '-300px';
-}
-
-window.closeAddWindows = function () {
-    document.getElementById('add-window-1').setAttribute('emphasized','false');
-    document.getElementById('add-window-2').setAttribute('emphasized','false');
-    document.getElementById('add-window-3').setAttribute('emphasized','false');
-}
-
-window.openAddWindow = function (index) {
-    window.closeAddWindows();
-    if (index === 3) {
-        const jobFlatList = Object.keys(teamList).flatMap(i => teamList[i]);
-        for (const job of jobFlatList) {
-            const amountInputs = [...document.getElementById(`amount-${job}`).getElementsByClassName('amount')];
-            const amountList = amountInputs.map(i => parseInt(i.value));
-            const priceInputs = [...document.getElementById(`price-${job}`).getElementsByClassName('price')];
-            for (let j = 0; j < amountList.length; j++) {
-                if (amountList[j] === 0) {
-                    priceInputs[j].value = 0;
-                    priceInputs[j].disabled = true;
-                    priceInputs[j].style.color = 'rgb(128,128,128)';
-                }
-                else {
-                    priceInputs[j].value = priceList[job][ability[j]];
-                    priceInputs[j].disabled = false;
-                    priceInputs[j].style.color = document.body.style.getPropertyValue("--text");
-                }
-            }
-        }
-    }
-    const bodyWidth = document.body.offsetWidth;
-    const addWindow = document.getElementById(`add-window-${index}`);
-    addWindow.setAttribute('emphasized','true');
-    addWindow.style.left = `${bodyWidth/2 - addWindow.offsetWidth/2}px`;
+let songpyeonAmount = {
+    'pink': 0,
+    'songgi': 0,
+    'flower': 0,
+    'pig': 0
 };
 
-window.closeProductWindow = function (num, index) {
-    const productWindow = document.getElementById(`product-window-${num}-${index}`);
-    productWindow.setAttribute('emphasized','false');
-}
-
-window.openProductWindow = function (num, index) {
-    closeProductWindow(num, 1);
-    closeProductWindow(num, 2);
-    closeProductWindow(num, 3);
-    const bodyWidth = document.body.offsetWidth;
-    const productWindow = document.getElementById(`product-window-${num}-${index}`);
-    productWindow.setAttribute('emphasized','true');
-    productWindow.style.left = `${bodyWidth/2 - productWindow.offsetWidth/2}px`;
-}
-
-window.submit = function() {
-    const author = document.getElementById('author').value;
-    const comment = document.getElementById('comment').value;
-    const date = `${new Date().getMonth()+1}월 ${new Date().getDate()}일`;
-    const amountData = [];
-    const priceData = [];
-    for (let job in priceList) {
-        const amountInputs = [...document.getElementById(`amount-${job}`).getElementsByClassName('amount')];
-        const amountValues = amountInputs.map(i => parseInt(i.value));
-        amountData.push({
-            job,
-            others: amountValues[0],
-            hot: amountValues[1],
-            cool: amountValues[2],
-            insurance: amountValues[3]
-        });
-        const priceInputs = [...document.getElementById(`price-${job}`).getElementsByClassName('price')];
-        const priceValues = priceInputs.map(i => parseInt(i.value));
-        priceData.push({
-            job,
-            others: priceValues[0],
-            hot: priceValues[1],
-            cool: priceValues[2],
-            insurance: priceValues[3]
-        });
+const onCheckboxClick = function(level) {
+    const checkList = [...document.getElementsByClassName(`${level}-item-checkbox`)].map(e => e.checked);
+    const selectAllCheckbox = document.getElementsByClassName('select-all-checkbox')[0];
+    selectAllCheckbox.checked = checkList.every(e => e);
+    const itemList = itemData[level].map(value => ({...value}));
+    const equipList = itemList.filter(i => i.isEquipItem);
+    const otherList = itemList.filter(i => !i.isEquipItem);
+    let checkedProbability = 0;
+    for (let i = 0; i < checkList.length; i++) {
+        if (checkList[i]) {
+            checkedProbability += itemList[i].probability; 
+            itemList[i].probability = 0; 
+        }
     }
-    //TODO if (author == '') {}
-    writeProductData(author, comment, date, amountData, priceData);
-    closeAddWindows();
+    for (let j = 0; j < itemList.length; j++) {
+        itemList[j].probability *= 100 / (100 - checkedProbability); 
+    }
+    const equipItemTotalProbability = equipList.map(i => i.probability).reduce((a,b) => a+b);
+    const otherItemTotalProbability = otherList.map(j => j.probability).reduce((c,d) => c+d);
+    for (let l = 0; l < otherList.length; l++) {
+        otherList[l].probability *= (100 - equipItemTotalProbability) / otherItemTotalProbability; 
+    }
+    const probabilityList = [...document.getElementsByClassName('probability')]; 
+    for (let m = 0; m < probabilityList.length; m++) {
+        probabilityList[m].innerText = `${Math.round(itemList[m].probability * 1000) / 1000}%`;
+    }
+    const totalProbability = document.getElementById('total-probability');
+    totalProbability.innerText = `장착 아이템 확률 : ${Math.round(equipItemTotalProbability * 1000)/1000}%`;
+};
+
+const onChangeButtonClick = function() {
+    const img = document.getElementsByClassName('gashapon-img')[0]; 
+    const table = document.getElementsByClassName('item-table')[0];
+    if (img.id === "low-gashapon-img") {
+        img.setAttribute('id', 'high-gashapon-img');
+        img.setAttribute('src', imageUrlList[1]);
+        table.setAttribute('id', 'high-item-table');
+        setTable(itemData.high, 'high');
+    } else {
+        img.setAttribute('id', 'low-gashapon-img');
+        img.setAttribute('src', imageUrlList[0]);
+        table.setAttribute('id', 'low-item-table');
+        setTable(itemData.low, 'low');
+    }
+};
+
+const setTable = function(itemList, level) {
+    const table = document.getElementsByClassName('item-table')[0];
+    table.innerHTML = `<tr id='item-table-header'>
+        <th id='checkbox-raw'>
+            <input class='select-all-checkbox' id='select-all-checkbox-${level}' type='checkbox' onclick='onSelectAllCheckboxClick("${level}")'>
+        </th>
+        <th id='name-raw'>
+            아이템
+        </th>
+        <th id='probability-raw'>
+            확률
+        </th>
+    </tr>`;
+    const equipItemList = itemList.filter(i => i.isEquipItem);
+    const otherItemList = itemList.filter(i => !i.isEquipItem);
+    for (const i of equipItemList) {
+        const item = document.createElement('tr');
+        item.innerHTML = `<td class='has-item'>
+            <input type='checkbox' class='${level}-item-checkbox' onclick='onCheckboxClick("${level}")'>
+        </td>
+        <td class='name'>
+            ${i.name}
+        </td>
+        <td class='probability'>
+            ${i.probability}%
+        </td>`;
+        table.append(item);
+    }
+    for (const j of otherItemList) {
+        const item = document.createElement('tr');
+        item.innerHTML = `<td>
+        </td>
+        <td class='name'>
+            ${j.name}
+        </td>
+        <td class='probability'>
+            ${j.probability}%
+        </td>`;
+        table.append(item);
+    }
+    const equipItemProbability = Math.round(equipItemList.map(i => i.probability).reduce((a,b) => a + b) * 1000) / 1000; 
+    const img = document.getElementsByClassName('gashapon-img')[0];
+    switch (level) {
+        case 'high': 
+            img.setAttribute('id', 'high-gashapon-img');
+            img.setAttribute('src', imageUrlList[1]);
+            break;
+        case 'low':
+            img.setAttribute('id', 'low-gashapon-img');
+            img.setAttribute('src', imageUrlList[0]);
+            break;
+    }
+    const totalProbability = document.getElementById('total-probability');
+    totalProbability.innerText = `장착 아이템 확률 : ${equipItemProbability}%`;
+};
+
+const onAmountChange = function (name) {
+    let pinkAmount = document.getElementById('pink-amount').value === '' ? 0 : parseInt(document.getElementById('pink-amount').value);
+    let songgiAmount = document.getElementById('songgi-amount').value === '' ? 0 : parseInt(document.getElementById('songgi-amount').value);
+    let flowerAmount = document.getElementById('flower-amount').value === '' ? 0 : parseInt(document.getElementById('flower-amount').value);
+    let pigAmount = document.getElementById('pig-amount').value === '' ? 0 : parseInt(document.getElementById('pig-amount').value);
+    if (pinkAmount + songgiAmount + flowerAmount + pigAmount > 4) {
+        document.getElementById(`${name}-amount`).value = songpyeonAmount[`${name}`];
+        alert('넣을 수 있는 송편의 최대 개수는 4개입니다.');
+        return;
+    }
+    songpyeonAmount[name] = document.getElementById(`${name}-amount`).value;
+    const addedProbability = 2.5 * pinkAmount + 5 * songgiAmount + 10 * flowerAmount + 20 * pigAmount;
+    const level = document.getElementsByClassName('item-table')[0].id.split('-')[0];
+    const checkList = [...document.getElementsByClassName(`${level}-item-checkbox`)].map(e => e.checked);
+    const itemList = itemData[level].map(value => ({...value}));
+    const equipList = itemList.filter(i => i.isEquipItem);
+    const otherList = itemList.filter(i => !i.isEquipItem);
+    let checkedProbability = 0;
+    for (let i = 0; i < checkList.length; i++) {
+        if (checkList[i]) {
+            checkedProbability += itemList[i].probability; 
+            itemList[i].probability = 0; 
+        }
+    }
+    for (let j = 0; j < itemList.length; j++) {
+        itemList[j].probability *= 100 / (100 - checkedProbability); 
+    }
+    for (let k = 0; k < equipList.length; k++) {
+        equipList[k].probability += equipList[k].probability * addedProbability / 100;
+    }
+    const equipItemTotalProbability = equipList.map(i => i.probability).reduce((a,b) => a+b);
+    const otherItemTotalProbability = otherList.map(j => j.probability).reduce((c,d) => c+d);
+    for (let l = 0; l < otherList.length; l++) {
+        otherList[l].probability *= (100 - equipItemTotalProbability) / otherItemTotalProbability; 
+    }
+    const probabilityList = [...document.querySelectorAll('.probability')]; 
+    for (let m = 0; m < probabilityList.length; m++) {
+        probabilityList[m].innerText = `${Math.round(itemList[m].probability * 1000) / 1000}%`;
+    }
+    const totalProbability = document.getElementById('total-probability');
+    totalProbability.innerText = `장착 아이템 확률 : ${Math.round(equipItemTotalProbability * 1000)/1000}%`;
+};
+
+const onDarkCheckboxClick = function() {
+    const darkCheckbox = document.getElementById('dark-checkbox');
+    const isDark = darkCheckbox.checked;
+    if (isDark) {
+        document.documentElement.setAttribute('color-theme', 'dark');
+        localStorage.setItem('color-theme', 'dark');
+        document.getElementById('header-img').setAttribute('src','../images/logo-dark.png');
+        document.getElementById('setting-img').setAttribute('src','../images/setting-dark.png');
+    } else {
+        document.documentElement.setAttribute('color-theme', 'light');
+        localStorage.setItem('color-theme', 'light');
+        document.getElementById('header-img').setAttribute('src','../images/logo-light.png');
+        document.getElementById('setting-img').setAttribute('src','../images/setting-light.png');
+    }
+} 
+
+const onSettingButtonClick = function() {
+    const bodyWidth = document.getElementsByTagName('body')[0].offsetWidth;
+    const settingWindow = document.getElementById('setting-window');
+    settingWindow.style.display = 'block';
+    settingWindow.style.left = `${bodyWidth/2 - settingWindow.offsetWidth/2}px`;
+    document.getElementById('setting-window').setAttribute('emphasized','true');
+
+};
+
+const onCloseButtonClick = function() {
+    const settingWindow = document.getElementById('setting-window');
+    settingWindow.style.display = 'none';
+    document.getElementById('setting-window').setAttribute('emphasized','false');
 }
 
-window.onload = async function () {
-    /*
+const onSelectAllCheckboxClick = function(level) {
+    const selectAllCheckbox = document.getElementsByClassName('select-all-checkbox')[0];
+    const checkboxList = document.getElementsByClassName(`${level}-item-checkbox`);
+    for (i = 0; i < checkboxList.length; i++) {
+        checkboxList[i].checked = selectAllCheckbox.checked;
+    }
+    onCheckboxClick(level);
+}
+
+const changeViewMode = function(theme) {
+    if (theme === 'light') {
+        localStorage.setItem('color-theme', 'light');
+        document.documentElement.setAttribute('color-theme', 'light');
+        document.getElementsByClassName('view-mode-svg')[0].outerHTML = '<svg class="view-mode-svg" id="view-mode-svg-dark" onclick="changeViewMode(\'dark\')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:10px;}</style></defs><g id="레이어_7" data-name="레이어 7"><path class="cls-1" d="M153.28,72A72,72,0,1,0,216.8,181.32s-45.54,1.13-66.2-34.67S153.28,72,153.28,72Z"/></g></svg>';
+        document.getElementById('header-img').setAttribute('src','../images/logo-light.png');
+        document.getElementById('menu-img').setAttribute('src','../images/menu-light.png');
+    }
+    else {
+        localStorage.setItem('color-theme', 'dark');
+        document.documentElement.setAttribute('color-theme', 'dark');
+        document.getElementsByClassName('view-mode-svg')[0].outerHTML = '<svg class="view-mode-svg" id="view-mode-svg-light" onclick="changeViewMode(\'light\')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:10px;}</style></defs><g id="레이어_6" data-name="레이어 6"><circle class="cls-1" cx="150" cy="150" r="54"/><line class="cls-1" x1="150" y1="56.5" x2="150" y2="74.91"/><line class="cls-1" x1="150" y1="225.5" x2="150" y2="243.91"/><line class="cls-1" x1="56.29" y1="150.21" x2="74.71" y2="150.21"/><line class="cls-1" x1="225.29" y1="150.21" x2="243.71" y2="150.21"/><line class="cls-1" x1="83.74" y1="83.95" x2="96.76" y2="96.97"/><line class="cls-1" x1="203.24" y1="203.45" x2="216.26" y2="216.47"/><line class="cls-1" x1="216.26" y1="83.95" x2="203.24" y2="96.97"/><line class="cls-1" x1="96.76" y1="203.45" x2="83.74" y2="216.47"/></g></svg>';
+        document.getElementById('header-img').setAttribute('src','../images/logo-dark.png');
+        document.getElementById('menu-img').setAttribute('src','../images/menu-dark.png');
+    }
+}
+
+window.onload = function () {
+    //set user color theme
     const userColorTheme = localStorage.getItem('color-theme');
     const osColorTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     const colorTheme = userColorTheme ? userColorTheme : osColorTheme;
     if (colorTheme === 'dark') {
         localStorage.setItem('color-theme', 'dark');
         document.documentElement.setAttribute('color-theme', 'dark');
-        document.getElementById('dark-checkbox').setAttribute('checked', true);
+        document.getElementsByClassName('view-mode-svg')[0].outerHTML = '<svg class="view-mode-svg" id="view-mode-svg-dark" onclick="changeViewMode(\'light\')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:10px;}</style></defs><g id="레이어_6" data-name="레이어 6"><circle class="cls-1" cx="150" cy="150" r="54"/><line class="cls-1" x1="150" y1="56.5" x2="150" y2="74.91"/><line class="cls-1" x1="150" y1="225.5" x2="150" y2="243.91"/><line class="cls-1" x1="56.29" y1="150.21" x2="74.71" y2="150.21"/><line class="cls-1" x1="225.29" y1="150.21" x2="243.71" y2="150.21"/><line class="cls-1" x1="83.74" y1="83.95" x2="96.76" y2="96.97"/><line class="cls-1" x1="203.24" y1="203.45" x2="216.26" y2="216.47"/><line class="cls-1" x1="216.26" y1="83.95" x2="203.24" y2="96.97"/><line class="cls-1" x1="96.76" y1="203.45" x2="83.74" y2="216.47"/></g></svg>';
         document.getElementById('header-img').setAttribute('src','../images/logo-dark.png');
-        document.getElementById('plus-img').innerHTML = '<defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:150px;}</style></defs><g id="레이어_9" data-name="레이어 9"><line class="cls-1" x1="500" y1="221" x2="500" y2="779"/><line class="cls-1" x1="221" y1="500" x2="779" y2="500"/></g>';
+        document.getElementById('menu-img').setAttribute('src','../images/menu-dark.png');
     } else {
         localStorage.setItem('color-theme', 'light');
         document.documentElement.setAttribute('color-theme', 'light');
+        document.getElementsByClassName('view-mode-svg')[0].outerHTML = '<svg class="view-mode-svg" id="view-mode-svg-dark" onclick="changeViewMode(\'dark\')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:10px;}</style></defs><g id="레이어_7" data-name="레이어 7"><path class="cls-1" d="M153.28,72A72,72,0,1,0,216.8,181.32s-45.54,1.13-66.2-34.67S153.28,72,153.28,72Z"/></g></svg>';
         document.getElementById('header-img').setAttribute('src','../images/logo-light.png');
-        document.getElementById('plus-img').innerHTML = '<defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-miterlimit:10;stroke-width:150px;}</style></defs><g id="레이어_9" data-name="레이어 9"><line class="cls-1" x1="500" y1="221" x2="500" y2="779"/><line class="cls-1" x1="221" y1="500" x2="779" y2="500"/></g>';
-    }
-    */
-    document.documentElement.setAttribute('color-theme', 'dark');
-
-    const jobPrice = document.getElementById('job-price');
-    for (let job in priceList) {
-        const team = Object.keys(teamList).find(i => teamList[i].some(e => e === job));
-        const price = priceList[job];
-        const tr = document.createElement('tr');
-        tr.setAttribute('id', `price-${job}`);
-        tr.innerHTML = `<td class='${team}'>
-            ${job}
-        </td>
-        <td>
-            <input class='price' type='number' min='0' max='99' value='${price.others}'>
-        </td>
-        <td>
-            <input class='price' type='number' min='0' max='99' value='${price.hot}'>
-        </td>
-        <td>
-            <input class='price' type='number' min='0' max='99' value='${price.cool}'>
-        </td>
-        <td>
-            <input class='price' type='number' min='0' max='99' value='${price.insurance}'>
-        </td>`;
-        jobPrice.getElementsByTagName('tbody')[0].appendChild(tr);
+        document.getElementById('menu-img').setAttribute('src','../images/menu-light.png');
     }
 
-    const jobAmount = document.getElementById('job-amount');
-    for (let job in priceList) {
-        const team = Object.keys(teamList).find(i => teamList[i].some(e => e === job));
-        const tr = document.createElement('tr');
-        tr.setAttribute('id', `amount-${job}`);
-        tr.innerHTML = `<td class='${team}'>
-            ${job}
-        </td>
-        <td>
-            <input class='amount' type='number' value='0' min='0' max='99'>
-        </td>
-        <td>
-            <input class='amount' type='number' value='0' min='0' max='99'>
-        </td>
-        <td>
-            <input class='amount' type='number' value='0' min='0' max='99'>
-        </td>
-        <td>
-            <input class='amount' type='number' value='0' min='0' max='99'>
-        </td>`;
-        jobAmount.getElementsByTagName('tbody')[0].appendChild(tr);
-    }
-
-    const productData = await readProductData();
-    if (productData !== null) {
-        const productTable = document.getElementById('product-list');
-        for (let i = 0; i < productData.length; i++) {
-            const amountList = productData[i].amount;
-            const priceList = productData[i].price;
-            let totalAmount = 0;
-            const div1 = document.createElement('div');
-            div1.innerHTML = `
-                <div class='window-title-container'>
-                    <span class='window-title'>
-                        정보 작성
-                    </span>
-                    <p class='closeButton' onclick='closeProductWindow(${i},1)'>&times;</p>
-                </div>
-                <div id='author-container'>
-                    <p class='input-title'>
-                        작성자
-                    </p>
-                    <p id='author-output'>
-                        ${productData[i].name}
-                    </p>
-                </div>
-                <div id='comment-container'>
-                    <p class='input-title'>
-                        구매자에게 할 말
-                    </p>
-                    <p id='comment-output'>
-                        ${productData[i].comment}
-                    </p>
-                </div>
-                <div id='move'>
-                    <button class='next' onclick='openProductWindow(${i},2)'>
-                        다음
-                        &blacktriangleright;
-                    </button>
-                </div>
-            `;
-            const div2 = document.createElement('div');
-            div2.innerHTML = `
-                <div class='window-title-container'>
-                    <span class='window-title'>
-                        수량
-                    </span>
-                    <p class='closeButton' onclick='closeProductWindow(${i},2)'>&times;</p>
-                </div>
-                <table id='job-amount'>
-                    <tr>
-                        <th class='job'>
-                            직업
-                        </th>
-                        <th class='others'>
-                            잡옵
-                        </th>
-                        <th class='hot'>
-                            열정
-                        </th>
-                        <th class='cool'>
-                            냉정
-                        </th>
-                        <th class='insurance'>
-                            보험/광기
-                        </th>
-                    </tr>
-                </table>
-                <div id='move'>
-                    <button class='prev' onclick='openProductWindow(${i},1)'>
-                        &blacktriangleleft;
-                        이전
-                    </button>
-                    <button class='next' onclick='openProductWindow(${i},3)'>
-                        다음
-                        &blacktriangleright;
-                    </button>
-                </div>
-            `;
-            const div3 = document.createElement('div');
-            div3.innerHTML = `
-                <div class='window-title-container'>
-                    <span class='window-title'>
-                        판매 시세
-                    </span>
-                    <p class='closeButton' onclick='closeProductWindow(${i},3)'>&times;</p>
-                </div>
-                <table id='job-price'>
-                    <tr>
-                        <th class='job'>
-                            직업
-                        </th>
-                        <th class='others'>
-                            잡옵
-                        </th>
-                        <th class='hot'>
-                            열정
-                        </th>
-                        <th class='cool'>
-                            냉정
-                        </th>
-                        <th class='insurance'>
-                            보험/광기
-                        </th>
-                    </tr>
-                </table>
-                <div id='move'>
-                    <button class='prev' onclick='openProductWindow(${i},2)'>
-                        &blacktriangleleft;
-                        이전
-                    </button>
-                    <button class='next' onclick='closeProductWindow(${i},3)'>
-                        확인 완료
-                    </button>
-                </div>
-            `;
-
-            for (let j of amountList) {
-                totalAmount += ( j.others + j.hot + j.cool + j.insurance );
-                const tr = document.createElement('tr');
-                const team = Object.keys(teamList).find(e => teamList[e].includes(j.job));
-                tr.innerHTML = `
-                    <td class='${team}'>
-                        ${j.job}
-                    </td>
-                    <td>
-                        ${j.others}
-                    </td>
-                    <td>
-                        ${j.hot}
-                    </td>
-                    <td>
-                        ${j.cool}
-                    </td>
-                    <td>
-                        ${j.insurance}
-                    </td>
-                `;
-                div2.querySelector('#job-amount > tbody').appendChild(tr);
-            }
-
-            for (let k of priceList) {
-                const tr = document.createElement('tr');
-                const team = Object.keys(teamList).find(e => teamList[e].includes(k.job));
-                tr.innerHTML = `
-                    <td class='${team}'>
-                        ${k.job}
-                    </td>
-                    <td>
-                        ${k.others}
-                    </td>
-                    <td>
-                        ${k.hot}
-                    </td>
-                    <td>
-                        ${k.cool}
-                    </td>
-                    <td>
-                        ${k.insurance}
-                    </td>
-                `;
-                div3.querySelector('#job-price > tbody').appendChild(tr);
-            }
-            
-            div1.setAttribute('class', 'product-window');
-            div2.setAttribute('class', 'product-window');
-            div3.setAttribute('class', 'product-window');
-            div1.setAttribute('id', `product-window-${i}-1`);
-            div2.setAttribute('id', `product-window-${i}-2`);
-            div3.setAttribute('id', `product-window-${i}-3`);
-
-            document.body.appendChild(div1);
-            document.body.appendChild(div2);
-            document.body.appendChild(div3);
-
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>
-                    ${totalAmount}
-                </td>
-                <td>
-                    ${productData[i].name}
-                </td>
-                <td>
-                    ${productData[i].date}
-                </td>
-            `;
-            tr.onclick = () => openProductWindow(i,1);
-            productTable.getElementsByTagName('tbody')[0].appendChild(tr);
-        }
-    }    
-}
+    setTable(itemData.high, 'high');
+};

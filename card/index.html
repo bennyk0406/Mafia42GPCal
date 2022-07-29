@@ -3,12 +3,11 @@
     <head>
         <title>자리닷컴 - 마피아42 뽑기 확률 계산기</title>
         <meta name='viewport' content='width=device-width,initial-scale=1'>
-        <meta charset="UTF-8">
         <meta property='og:title' content='자리닷컴' />
         <meta property='og:type' content='website' />
         <meta property='og:url' content='https://자리.com/' />
         <meta name="naver-site-verification" content="03007eb0228b0044dcf7cee7c36400f89ab170e8" />
-        <meta property='og:image' content='../images/thumbnail.png' />
+        <meta property='og:image' content='./images/thumbnail.png' />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1280" />
         <meta property="og:image:height" content="1280" />
@@ -16,164 +15,39 @@
         <meta name="keywords" content=" 마피아42, 상자깡, 뽑기, 확률, 마피아, 자리, 자리닷컴, 나성수, Mafia42, TEAM42, 떡치기">
         <meta name="twitter:card" content="summary_large_image">
         <meta name='description' content='자리닷컴에서 마피아42의 실제 뽑기 확률을 계산해 보세요!' />
-        <meta name ="google-signin-client_id" content="792858715618-ts3sob4du44ib0ja6a5dt61ldco4ci58.apps.googleusercontent.com">
         <link rel='canonical' href='https://자리.com/' >
         <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
         <link rel='stylesheet' href='./style.css'>
         <link rel='preconnect' href='https://fonts.googleapis.com'>
         <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
         <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap'>
-        <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap'>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-J2LX60SZMC"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-J2LX60SZMC');
+        </script>
     </head>    
     <body>
-        <script type='module' src='../login.js'></script>
-        <script src='./data/price.js'></script>
-        <script type='module' src='./script.js'></script>
         <header>
             <div>
                 <img id='header-img' src='../images/logo-dark.png' alt='헤더 이미지' onclick='location.href="../"'/>
             </div>
             <div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-2{fill:#fff;}</style></defs><g id="레이어_6" data-name="레이어 6"><path class="cls-2" d="M150,211.5A61.5,61.5,0,1,1,211.5,150,61.57,61.57,0,0,1,150,211.5Zm0-108A46.5,46.5,0,1,0,196.5,150,46.55,46.55,0,0,0,150,103.5Z"/><path class="cls-2" d="M150,82.42a7.5,7.5,0,0,1-7.5-7.5V56.5a7.5,7.5,0,0,1,15,0V74.92A7.5,7.5,0,0,1,150,82.42Z"/><path class="cls-2" d="M150,251.42a7.5,7.5,0,0,1-7.5-7.5V225.5a7.5,7.5,0,0,1,15,0v18.42A7.5,7.5,0,0,1,150,251.42Z"/><path class="cls-2" d="M74.71,157.71H56.29a7.5,7.5,0,1,1,0-15H74.71a7.5,7.5,0,1,1,0,15Z"/><path class="cls-2" d="M243.71,157.71H225.29a7.5,7.5,0,0,1,0-15h18.42a7.5,7.5,0,0,1,0,15Z"/><path class="cls-2" d="M96.76,104.47a7.44,7.44,0,0,1-5.3-2.2l-13-13A7.5,7.5,0,0,1,89,78.64l13,13a7.51,7.51,0,0,1-5.3,12.81Z"/><path class="cls-2" d="M216.26,224a7.44,7.44,0,0,1-5.3-2.2l-13-13a7.5,7.5,0,0,1,10.6-10.61l13,13a7.5,7.5,0,0,1-5.3,12.8Z"/><path class="cls-2" d="M203.24,104.47a7.51,7.51,0,0,1-5.3-12.81l13-13a7.5,7.5,0,0,1,10.6,10.61l-13,13A7.44,7.44,0,0,1,203.24,104.47Z"/><path class="cls-2" d="M83.74,224a7.5,7.5,0,0,1-5.3-12.8l13-13a7.5,7.5,0,0,1,10.6,10.61l-13,13A7.44,7.44,0,0,1,83.74,224Z"/></g></svg>
+                <svg class='view-mode-svg' id='view-mode-svg-light' onclick='changeViewMode()' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="레이어_6" data-name="레이어 6"><path class="cls-1" d="M150,211.5A61.5,61.5,0,1,1,211.5,150,61.57,61.57,0,0,1,150,211.5Zm0-108A46.5,46.5,0,1,0,196.5,150,46.55,46.55,0,0,0,150,103.5Z"/><path class="cls-1" d="M150,82.42a7.5,7.5,0,0,1-7.5-7.5V56.5a7.5,7.5,0,0,1,15,0V74.92A7.5,7.5,0,0,1,150,82.42Z"/><path class="cls-1" d="M150,251.42a7.5,7.5,0,0,1-7.5-7.5V225.5a7.5,7.5,0,0,1,15,0v18.42A7.5,7.5,0,0,1,150,251.42Z"/><path class="cls-1" d="M74.71,157.71H56.29a7.5,7.5,0,1,1,0-15H74.71a7.5,7.5,0,1,1,0,15Z"/><path class="cls-1" d="M243.71,157.71H225.29a7.5,7.5,0,0,1,0-15h18.42a7.5,7.5,0,0,1,0,15Z"/><path class="cls-1" d="M96.76,104.47a7.44,7.44,0,0,1-5.3-2.2l-13-13A7.5,7.5,0,0,1,89,78.64l13,13a7.51,7.51,0,0,1-5.3,12.81Z"/><path class="cls-1" d="M216.26,224a7.44,7.44,0,0,1-5.3-2.2l-13-13a7.5,7.5,0,0,1,10.6-10.61l13,13a7.5,7.5,0,0,1-5.3,12.8Z"/><path class="cls-1" d="M203.24,104.47a7.51,7.51,0,0,1-5.3-12.81l13-13a7.5,7.5,0,0,1,10.6,10.61l-13,13A7.44,7.44,0,0,1,203.24,104.47Z"/><path class="cls-1" d="M83.74,224a7.5,7.5,0,0,1-5.3-12.8l13-13a7.5,7.5,0,0,1,10.6,10.61l-13,13A7.44,7.44,0,0,1,83.74,224Z"/></g></svg>
             </div>
             <div>    
                 <img id='menu-img' onclick='openLoginMenu()' src='../images/menu-dark.png' alt='메뉴 이미지' />
             </div>
         </header>
-        <main onclick='closeLoginMenu()'>
-            <section>
-                <header>
-                    <div id='card-img-container'>
-                        <img id='card-img' src='../images/card.png' alt='카드 이미지' />
-                    </div>
-                    <span id='card-title'>
-                        카드 교환소
-                    </span>
-                </header>
-                <article>
-                    <table id='product-list'>
-                        <tr>
-                            <th>
-                                카드 개수
-                            </th>
-                            <th>
-                                판매자
-                            </th>
-                            <th>
-                                등록일
-                            </th>
-                        </tr>
-                    </table>
-                </article>
-            </section>
+        <main>
+            
         </main>
         <footer>
-            <svg id='plus-img' onclick='openAddWindow(1)' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:150px;}</style></defs><g id="레이어_9" data-name="레이어 9"><line class="cls-1" x1="500" y1="221" x2="500" y2="779"/><line class="cls-1" x1="221" y1="500" x2="779" y2="500"/></g></svg>
+            
         </footer>
-        <div class='add-window' id='add-window-1'>
-            <div class='window-title-container'>
-                <span class='window-title'>
-                    정보 작성
-                </span>
-                <p class='closeButton' onclick='closeAddWindows()'>&times;</p>
-            </div>
-            <div id='author-container'>
-                <p class='input-title'>
-                    작성자
-                </p>
-                <input id='author' type='text' maxlength="6" placeholder="다른 사람의 명의를 도용할 시 제재될 수 있습니다.">
-            </div>
-            <div id='comment-container'>
-                <p class='input-title'>
-                    구매자에게 할 말
-                </p>
-                <textarea id='comment' type='textarea' rows='10' cols='30'></textarea>
-            </div>
-            <div id='move'>
-                <button class='next' onclick='openAddWindow(2)'>
-                    다음
-                    &blacktriangleright;
-                </button>
-            </div>
-        </div>
-        <div class='add-window' id='add-window-2'>
-            <div class='window-title-container'>
-                <span class='window-title'>
-                    판매 수량 입력
-                </span>
-                <p class='closeButton' onclick='closeAddWindows()'>&times;</p>
-            </div>
-            <table id='job-amount'>
-                <tr>
-                    <th class='job'>
-                        직업
-                    </th>
-                    <th class='others'>
-                        잡옵
-                    </th>
-                    <th class='hot'>
-                        열정
-                    </th>
-                    <th class='cool'>
-                        냉정
-                    </th>
-                    <th class='insurance'>
-                        보험/광기
-                    </th>
-                </tr>
-            </table>
-            <div id='move'>
-                <button class='prev' onclick='openAddWindow(1)'>
-                    &blacktriangleleft;
-                    이전
-                </button>
-                <button class='next' onclick='openAddWindow(3)'>
-                    다음
-                    &blacktriangleright;
-                </button>
-            </div>
-        </div>
-        <div class='add-window' id='add-window-3'>
-            <div class='window-title-container'>
-                <span class='window-title'>
-                    판매 시세 입력
-                </span>
-                <p class='closeButton' onclick='closeAddWindows()'>&times;</p>
-            </div>
-            <table id='job-price'>
-                <tr>
-                    <th class='job'>
-                        직업
-                    </th>
-                    <th class='others'>
-                        잡옵
-                    </th>
-                    <th class='hot'>
-                        열정
-                    </th>
-                    <th class='cool'>
-                        냉정
-                    </th>
-                    <th class='insurance'>
-                        보험/광기
-                    </th>
-                </tr>
-            </table>
-            <div id='move'>
-                <button class='prev' onclick='openAddWindow(2)'>
-                    &blacktriangleleft;
-                    이전
-                </button>
-                <button class='next' onclick='submit()'>
-                    제출
-                    &blacktriangleright;
-                </button>
-            </div>
-        </div>
-        <div id='login-container'>
-            <div id='google-login' onclick='googleLogin()'>
-                구글 로그인
-            </div>
-        </div>
+        <script src='./script.js'></script>
     </body>
 </html>
