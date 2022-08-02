@@ -1,21 +1,18 @@
 :root[color-theme='light'] {
-    --background: rgba(255,255,255);
-    --header-background: rgba(241,244,245);
-    --setting-background: rgb(243, 148, 148);
+    --background: rgba(245, 245, 245);
+    --header-background: rgba(231, 234, 235);
     --text: black;
     --border: black;
 }
 
 :root[color-theme='dark'] {
-    --background: rgba(30,30,30);
-    --header-background: rgba(50,50,50);
-    --setting-background: rgba(60,60,60);
+    --background: rgba(45, 45, 50);
+    --header-background: rgba(55, 55, 55);
     --border: black;
     --text: white;
 }
 
 body {
-    padding-top: 40px;
     font-family: 'Noto Sans KR', sans-serif;
     margin: 0;
     -ms-user-select: none; 
@@ -25,54 +22,52 @@ body {
     user-select: none;
 }
 
-#content {
-    margin: 0;
+#root {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
 }
 
-/* header */
-body>header {
-    position: fixed;
-    height: 40px;
+#root > header {
+    height: 50px;
     width: 100%;
-    vertical-align: middle;
     background-color: var(--background);
-    color: var(--text);
-    top: 0; 
-    bottom: 0; 
-    left: 0; 
-    right: 0;
     border-bottom: 1px var(--border) solid;
-    text-align: right;
-    display: grid;
-    grid-template-columns: 1fr 40px 50px;
-    grid-template-rows: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-img#header-img {
-    position: absolute;
-    height: 50%;
-    margin: auto auto auto 10px;
-    top: 0; 
-    bottom: 0; 
-    left: 0; 
-    right: 0;
+#logo-container {
+    display: flex;
+    align-items: center;
+}
+
+#svg-container {
+    width: 50px;
+    height: 50px;
+    margin-right: 3px;
+}
+
+#view-mode-svg {
+    width: 100%;
+    height: 100%;
+}
+
+#header-img {
+    padding-left: 5px;
+    height: 26px;
     cursor: pointer;
 }
 
-img#menu-img {
-    position: absolute;
-    height: 75%;
-    margin: auto 10px auto auto;
-    top: 0; 
-    bottom: 0; 
-    right: 0;
-}
-
-/* main */
 main {
-    padding: 10px 1rem 5rem 1rem;
+    flex-grow: 1;
+    padding: 5px 10px 80px 10px;
     color: var(--text);
     background-color: var(--background);
+    overflow-y: scroll;
+    font-size: 18px;
 }
 
 /* itemTable */

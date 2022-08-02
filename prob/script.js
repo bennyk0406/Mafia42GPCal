@@ -1,9 +1,11 @@
+const getElement = (id) => document.getElementById(id);
+ 
 const imageUrlList = [
     '../assets/low.png',
     '../assets/high.png'
 ];
 
-let songpyeonAmount = {
+const songpyeonAmount = {
     'pink': 0,
     'songgi': 0,
     'flower': 0,
@@ -36,7 +38,7 @@ const onCheckboxClick = function(level) {
     for (let m = 0; m < probabilityList.length; m++) {
         probabilityList[m].innerText = `${Math.round(itemList[m].probability * 1000) / 1000}%`;
     }
-    const totalProbability = document.getElementById('total-probability');
+    const totalProbability = getElement('total-probability');
     totalProbability.innerText = `장착 아이템 확률 : ${Math.round(equipItemTotalProbability * 1000)/1000}%`;
 };
 
@@ -108,21 +110,21 @@ const setTable = function(itemList, level) {
             img.setAttribute('src', imageUrlList[0]);
             break;
     }
-    const totalProbability = document.getElementById('total-probability');
+    const totalProbability = getElement('total-probability');
     totalProbability.innerText = `장착 아이템 확률 : ${equipItemProbability}%`;
 };
 
 const onAmountChange = function (name) {
-    let pinkAmount = document.getElementById('pink-amount').value === '' ? 0 : parseInt(document.getElementById('pink-amount').value);
-    let songgiAmount = document.getElementById('songgi-amount').value === '' ? 0 : parseInt(document.getElementById('songgi-amount').value);
-    let flowerAmount = document.getElementById('flower-amount').value === '' ? 0 : parseInt(document.getElementById('flower-amount').value);
-    let pigAmount = document.getElementById('pig-amount').value === '' ? 0 : parseInt(document.getElementById('pig-amount').value);
+    let pinkAmount = getElement('pink-amount').value === '' ? 0 : parseInt(getElement('pink-amount').value);
+    let songgiAmount = getElement('songgi-amount').value === '' ? 0 : parseInt(getElement('songgi-amount').value);
+    let flowerAmount = getElement('flower-amount').value === '' ? 0 : parseInt(getElement('flower-amount').value);
+    let pigAmount = getElement('pig-amount').value === '' ? 0 : parseInt(getElement('pig-amount').value);
     if (pinkAmount + songgiAmount + flowerAmount + pigAmount > 4) {
-        document.getElementById(`${name}-amount`).value = songpyeonAmount[`${name}`];
+        getElement(`${name}-amount`).value = songpyeonAmount[`${name}`];
         alert('넣을 수 있는 송편의 최대 개수는 4개입니다.');
         return;
     }
-    songpyeonAmount[name] = document.getElementById(`${name}-amount`).value;
+    songpyeonAmount[name] = getElement(`${name}-amount`).value;
     const addedProbability = 2.5 * pinkAmount + 5 * songgiAmount + 10 * flowerAmount + 20 * pigAmount;
     const level = document.getElementsByClassName('item-table')[0].id.split('-')[0];
     const checkList = [...document.getElementsByClassName(`${level}-item-checkbox`)].map(e => e.checked);
@@ -151,40 +153,26 @@ const onAmountChange = function (name) {
     for (let m = 0; m < probabilityList.length; m++) {
         probabilityList[m].innerText = `${Math.round(itemList[m].probability * 1000) / 1000}%`;
     }
-    const totalProbability = document.getElementById('total-probability');
+    const totalProbability = getElement('total-probability');
     totalProbability.innerText = `장착 아이템 확률 : ${Math.round(equipItemTotalProbability * 1000)/1000}%`;
 };
 
 const onDarkCheckboxClick = function() {
-    const darkCheckbox = document.getElementById('dark-checkbox');
+    const darkCheckbox = getElement('dark-checkbox');
     const isDark = darkCheckbox.checked;
     if (isDark) {
         document.documentElement.setAttribute('color-theme', 'dark');
         localStorage.setItem('color-theme', 'dark');
-        document.getElementById('header-img').setAttribute('src','../assets/logo-dark.png');
-        document.getElementById('setting-img').setAttribute('src','../assets/setting-dark.png');
+        getElement('header-img').setAttribute('src','../assets/logo-dark.png');
+        getElement('setting-img').setAttribute('src','../assets/setting-dark.png');
     } else {
         document.documentElement.setAttribute('color-theme', 'light');
         localStorage.setItem('color-theme', 'light');
-        document.getElementById('header-img').setAttribute('src','../assets/logo-light.png');
-        document.getElementById('setting-img').setAttribute('src','../assets/setting-light.png');
+        getElement('header-img').setAttribute('src','../assets/logo-light.png');
+        getElement('setting-img').setAttribute('src','../assets/setting-light.png');
     }
 } 
 
-const onSettingButtonClick = function() {
-    const bodyWidth = document.getElementsByTagName('body')[0].offsetWidth;
-    const settingWindow = document.getElementById('setting-window');
-    settingWindow.style.display = 'block';
-    settingWindow.style.left = `${bodyWidth/2 - settingWindow.offsetWidth/2}px`;
-    document.getElementById('setting-window').setAttribute('emphasized','true');
-
-};
-
-const onCloseButtonClick = function() {
-    const settingWindow = document.getElementById('setting-window');
-    settingWindow.style.display = 'none';
-    document.getElementById('setting-window').setAttribute('emphasized','false');
-}
 
 const onSelectAllCheckboxClick = function(level) {
     const selectAllCheckbox = document.getElementsByClassName('select-all-checkbox')[0];
@@ -195,41 +183,31 @@ const onSelectAllCheckboxClick = function(level) {
     onCheckboxClick(level);
 }
 
-const changeViewMode = function(theme) {
-    if (theme === 'light') {
+const changeViewMode = function() {
+    const theme = document.documentElement.getAttribute('color-theme')
+    if (theme === 'dark') {
         localStorage.setItem('color-theme', 'light');
         document.documentElement.setAttribute('color-theme', 'light');
-        document.getElementsByClassName('view-mode-svg')[0].outerHTML = '<svg class="view-mode-svg" id="view-mode-svg-dark" onclick="changeViewMode(\'dark\')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:10px;}</style></defs><g id="레이어_7" data-name="레이어 7"><path class="cls-1" d="M153.28,72A72,72,0,1,0,216.8,181.32s-45.54,1.13-66.2-34.67S153.28,72,153.28,72Z"/></g></svg>';
-        document.getElementById('header-img').setAttribute('src','../assets/logo-light.png');
-        document.getElementById('menu-img').setAttribute('src','../assets/menu-light.png');
+        getElement('view-mode-svg').setAttribute('src', '../assets/moon.svg');
+        getElement('header-img').setAttribute('src','../assets/logo-light.png');
     }
     else {
         localStorage.setItem('color-theme', 'dark');
         document.documentElement.setAttribute('color-theme', 'dark');
-        document.getElementsByClassName('view-mode-svg')[0].outerHTML = '<svg class="view-mode-svg" id="view-mode-svg-light" onclick="changeViewMode(\'light\')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:10px;}</style></defs><g id="레이어_6" data-name="레이어 6"><circle class="cls-1" cx="150" cy="150" r="54"/><line class="cls-1" x1="150" y1="56.5" x2="150" y2="74.91"/><line class="cls-1" x1="150" y1="225.5" x2="150" y2="243.91"/><line class="cls-1" x1="56.29" y1="150.21" x2="74.71" y2="150.21"/><line class="cls-1" x1="225.29" y1="150.21" x2="243.71" y2="150.21"/><line class="cls-1" x1="83.74" y1="83.95" x2="96.76" y2="96.97"/><line class="cls-1" x1="203.24" y1="203.45" x2="216.26" y2="216.47"/><line class="cls-1" x1="216.26" y1="83.95" x2="203.24" y2="96.97"/><line class="cls-1" x1="96.76" y1="203.45" x2="83.74" y2="216.47"/></g></svg>';
-        document.getElementById('header-img').setAttribute('src','../assets/logo-dark.png');
-        document.getElementById('menu-img').setAttribute('src','../assets/menu-dark.png');
+        getElement('view-mode-svg').setAttribute('src', '../assets/sun.svg');
+        getElement('header-img').setAttribute('src','../assets/logo-dark.png');
     }
 }
 
-window.onload = function () {
-    //set user color theme
-    const userColorTheme = localStorage.getItem('color-theme');
-    const osColorTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const colorTheme = userColorTheme ? userColorTheme : osColorTheme;
-    if (colorTheme === 'dark') {
-        localStorage.setItem('color-theme', 'dark');
-        document.documentElement.setAttribute('color-theme', 'dark');
-        document.getElementsByClassName('view-mode-svg')[0].outerHTML = '<svg class="view-mode-svg" id="view-mode-svg-dark" onclick="changeViewMode(\'light\')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:10px;}</style></defs><g id="레이어_6" data-name="레이어 6"><circle class="cls-1" cx="150" cy="150" r="54"/><line class="cls-1" x1="150" y1="56.5" x2="150" y2="74.91"/><line class="cls-1" x1="150" y1="225.5" x2="150" y2="243.91"/><line class="cls-1" x1="56.29" y1="150.21" x2="74.71" y2="150.21"/><line class="cls-1" x1="225.29" y1="150.21" x2="243.71" y2="150.21"/><line class="cls-1" x1="83.74" y1="83.95" x2="96.76" y2="96.97"/><line class="cls-1" x1="203.24" y1="203.45" x2="216.26" y2="216.47"/><line class="cls-1" x1="216.26" y1="83.95" x2="203.24" y2="96.97"/><line class="cls-1" x1="96.76" y1="203.45" x2="83.74" y2="216.47"/></g></svg>';
-        document.getElementById('header-img').setAttribute('src','../assets/logo-dark.png');
-        document.getElementById('menu-img').setAttribute('src','../assets/menu-dark.png');
-    } else {
-        localStorage.setItem('color-theme', 'light');
-        document.documentElement.setAttribute('color-theme', 'light');
-        document.getElementsByClassName('view-mode-svg')[0].outerHTML = '<svg class="view-mode-svg" id="view-mode-svg-dark" onclick="changeViewMode(\'dark\')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:10px;}</style></defs><g id="레이어_7" data-name="레이어 7"><path class="cls-1" d="M153.28,72A72,72,0,1,0,216.8,181.32s-45.54,1.13-66.2-34.67S153.28,72,153.28,72Z"/></g></svg>';
-        document.getElementById('header-img').setAttribute('src','../assets/logo-light.png');
-        document.getElementById('menu-img').setAttribute('src','../assets/menu-light.png');
-    }
-
-    setTable(itemData.high, 'high');
-};
+const userColorTheme = localStorage.getItem('color-theme');
+const osColorTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const colorTheme = userColorTheme ? userColorTheme : osColorTheme;
+localStorage.setItem('color-theme', colorTheme);
+getElement('header-img').setAttribute('src',`../assets/logo-${colorTheme}.png`);
+document.documentElement.setAttribute('color-theme', colorTheme);
+if (colorTheme === 'dark') {
+    getElement('view-mode-svg').setAttribute('src', '../assets/sun.svg');
+} else {
+    getElement('view-mode-svg').setAttribute('src', '../assets/moon.svg');
+}
+setTable(itemData.high, "high");

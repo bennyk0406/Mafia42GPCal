@@ -1,20 +1,18 @@
 const getElement = (id) => document.getElementById(id);
 
 const changeViewMode = function() {
-    const theme = document.documentElement.getAttribute('color-theme')
-    if (theme === 'light') {
+    const theme = document.documentElement.getAttribute('color-theme');
+    if (theme === 'dark') {
         localStorage.setItem('color-theme', 'light');
         document.documentElement.setAttribute('color-theme', 'light');
-        document.getElementsByClassName('view-mode-svg')[0].outerHTML = '<svg class="view-mode-svg" id="view-mode-svg-dark" onclick="changeViewMode(\'dark\')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:10px;}</style></defs><g id="레이어_7" data-name="레이어 7"><path class="cls-1" d="M153.28,72A72,72,0,1,0,216.8,181.32s-45.54,1.13-66.2-34.67S153.28,72,153.28,72Z"/></g></svg>';
+        getElement('view-mode-svg').setAttribute('src', '../assets/moon.svg');
         getElement('header-img').setAttribute('src','../assets/logo-light.png');
-        getElement('menu-img').setAttribute('src','../assets/menu-light.png');
     }
     else {
         localStorage.setItem('color-theme', 'dark');
         document.documentElement.setAttribute('color-theme', 'dark');
-        document.getElementsByClassName('view-mode-svg')[0].outerHTML = '<svg class="view-mode-svg" id="view-mode-svg-light" onclick="changeViewMode(\'light\')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:10px;}</style></defs><g id="레이어_6" data-name="레이어 6"><circle class="cls-1" cx="150" cy="150" r="54"/><line class="cls-1" x1="150" y1="56.5" x2="150" y2="74.91"/><line class="cls-1" x1="150" y1="225.5" x2="150" y2="243.91"/><line class="cls-1" x1="56.29" y1="150.21" x2="74.71" y2="150.21"/><line class="cls-1" x1="225.29" y1="150.21" x2="243.71" y2="150.21"/><line class="cls-1" x1="83.74" y1="83.95" x2="96.76" y2="96.97"/><line class="cls-1" x1="203.24" y1="203.45" x2="216.26" y2="216.47"/><line class="cls-1" x1="216.26" y1="83.95" x2="203.24" y2="96.97"/><line class="cls-1" x1="96.76" y1="203.45" x2="83.74" y2="216.47"/></g></svg>';
+        getElement('view-mode-svg').setAttribute('src', '../assets/sun.svg');
         getElement('header-img').setAttribute('src','../assets/logo-dark.png');
-        getElement('menu-img').setAttribute('src','../assets/menu-dark.png');
     }
 }
 
@@ -97,7 +95,7 @@ localStorage.setItem('color-theme', colorTheme);
 getElement('header-img').setAttribute('src',`../assets/logo-${colorTheme}.png`);
 document.documentElement.setAttribute('color-theme', colorTheme);
 if (colorTheme === 'dark') {
-    getElement('svg-container').innerHTML = '<img src="../assets/moon.svg" class="view-mode-svg" onclick="changeViewMode()"></svg>';
+    getElement('view-mode-svg').setAttribute('src', '../assets/sun.svg');
 } else {
-    getElement('svg-container').innerHTML = '<img src="../assets/sun.svg" class="view-mode-svg" onclick="changeViewMode()"></svg>';
+    getElement('view-mode-svg').setAttribute('src', '../assets/moon.svg');
 }

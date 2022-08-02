@@ -35,10 +35,10 @@
         <div id="root">
             <header>
                 <div id="logo-container">
-                    <img id="header-img" src="../assets/logo-dark.png" alt="헤더 이미지" src="../">
+                    <img id="header-img" src="../assets/logo-dark.png" alt="헤더 이미지" onclick="location.href='../'">
                 </div>
                 <div id="svg-container">
-                    <img class="view-mode-svg" onclick="changeViewMode()" src="moon.svg">
+                    <img id="view-mode-svg" onclick="changeViewMode()" src="../assets/moon.svg">
                 </div>
             </header>
             <main>
@@ -139,7 +139,7 @@
                 <section id="authority">
                     <header>    
                         <div class="img-container">
-                            <img src="../assets/dlatl.svg">                   
+                            <img src="../assets/postcard.png">                   
                         </div>
                         <span class="title">권위의 엽서 계산기</span>
                     </header>
@@ -165,11 +165,11 @@
                     <img src="../assets/mailbox.svg">
                 </a>
                 <a class="navigation" href="#authority">
-                    <img src="../assets/dlatl.svg">
+                    <img src="../assets/postcard.png">
                 </a>
             </footer>
         </div>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="./script.js"></script>
+        <script defer src="./script.js"></script>
     </body>
 </html>
