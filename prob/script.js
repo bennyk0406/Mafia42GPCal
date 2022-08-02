@@ -199,6 +199,11 @@ const changeViewMode = function() {
     }
 }
 
+$(window).on("resize", () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+
 const userColorTheme = localStorage.getItem('color-theme');
 const osColorTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 const colorTheme = userColorTheme ? userColorTheme : osColorTheme;
