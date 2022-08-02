@@ -96,6 +96,7 @@ $("#fame").on("keyup input paste", () => {
 });
 
 $(window).on("resize", () => {
+    console.log("resized!");
     getElement("root").style.height = window.innerHeight;
 })
 
