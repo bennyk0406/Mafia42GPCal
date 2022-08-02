@@ -96,8 +96,8 @@ $("#fame").on("keyup input paste", () => {
 });
 
 $(window).on("resize", () => {
-    getElement("root").style.setProperty("height", window.innerHeight);
-})
+    getElement("root").style.height = window.innerHeight;
+});
 
 const userColorTheme = localStorage.getItem('color-theme');
 const osColorTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -110,3 +110,4 @@ if (colorTheme === 'dark') {
 } else {
     getElement('view-mode-svg').setAttribute('src', '../assets/moon.svg');
 }
+getElement("root").style.height = window.innerHeight;
