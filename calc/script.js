@@ -95,6 +95,10 @@ $("#fame").on("keyup input paste", () => {
     getElement("postcard-fame").innerText = `권위의 엽서 명성 : -${postcardFame.toLocaleString()}`; 
 });
 
+$(window).on("resize", () => {
+    getElement("root").style.height = window.innerHeight;
+})
+
 const userColorTheme = localStorage.getItem('color-theme');
 const osColorTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 const colorTheme = userColorTheme ? userColorTheme : osColorTheme;
