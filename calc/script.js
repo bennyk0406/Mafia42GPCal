@@ -96,8 +96,7 @@ $("#fame").on("keyup input paste", () => {
 });
 
 $(window).on("resize", () => {
-    console.log("resized!");
-    getElement("root").style.height = window.innerHeight;
+    getElement("root").style.setProperty("height", window.innerHeight);
 })
 
 const userColorTheme = localStorage.getItem('color-theme');
