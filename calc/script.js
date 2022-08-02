@@ -1,6 +1,7 @@
 const getElement = (id) => document.getElementById(id);
 
-const changeViewMode = function(theme) {
+const changeViewMode = function() {
+    const theme = document.documentElement.getAttribute('color-theme')
     if (theme === 'light') {
         localStorage.setItem('color-theme', 'light');
         document.documentElement.setAttribute('color-theme', 'light');
@@ -96,7 +97,7 @@ localStorage.setItem('color-theme', colorTheme);
 getElement('header-img').setAttribute('src',`../assets/logo-${colorTheme}.png`);
 document.documentElement.setAttribute('color-theme', colorTheme);
 if (colorTheme === 'dark') {
-    getElement('svg-container').innerHTML = '<svg src="../assets/moon.svg" class="view-mode-svg" id="view-mode-svg-dark" onclick="changeViewMode(\'light\')"></svg>';
+    getElement('svg-container').innerHTML = '<img src="../assets/moon.svg" class="view-mode-svg" onclick="changeViewMode()"></svg>';
 } else {
-    getElement('svg-container').innerHTML = '<svg src="../assets/sun.svg" class="view-mode-svg" id="view-mode-svg-light" onclick="changeViewMode(\'dark\')"></svg>';
+    getElement('svg-container').innerHTML = '<img src="../assets/sun.svg" class="view-mode-svg" onclick="changeViewMode()"></svg>';
 }
