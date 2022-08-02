@@ -398,4 +398,4 @@ const itemData = {
             "isEquipItem": false
         }
     ]
-}
+};

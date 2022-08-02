@@ -118,20 +118,7 @@ footer {
     right: 0;
     font-weight: bold;
 }
-#setting-button {
-    position: fixed;
-    left: 3px;
-    padding: 0;
-    bottom: 0;
-    background-color: transparent;
-    border: 0;
-    outline: 0;
-    width: 50px;
-    cursor: pointer;
-}
-#setting-img {
-    width: 100%;
-}
+
 #gashapon-button {
     position: fixed;
     right: 3px;
@@ -146,83 +133,7 @@ footer {
     width: 100%;
 }
 
-/* setting window */
-#setting-window[emphasized='false'] {
-    max-width: 500px;
-    min-width: 300px;
-    display: none;
-    position: fixed;
-    height: 50vh;
-    width: 50vw;
-    top: 25vh;
-    margin: 0;
-    color: var(--text);
-    border: 1px solid black;
-    border-radius: 5px;
-    z-index: 1;
-    background-color: var(--setting-background);
-}
-#setting-window[emphasized='true'] {
-    max-width: 500px;
-    min-width: 300px;
-    display: none;
-    position: fixed;
-    height: 50vh;
-    width: 50vw;
-    top: 25vh;
-    margin: 0;
-    color: var(--text);
-    border: 1px solid black;
-    border-radius: 5px;
-    z-index: 1;
-    background-color: var(--setting-background);
-    box-shadow : rgba(0,0,0,0.5) 0 0 0 9999px;
-}
-
-#setting-window-header {
-    padding: 5px 10px;
-}
-#setting-window-title {
-    font-size: 1.5rem;
-}
-#setting-window-content {
-    padding: 5px 0 0 10px;
-}
-#comment {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    text-align: right;
-}
-.closeButton {
-    float: right;
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--text);
-    opacity: 0.5;
-    margin-top: 5px;
-    cursor: pointer;
-}
 p {
     margin-top: 0;
     margin-bottom: 0;
-}
-
-/* others */
-a:link {
-    text-decoration: none;
-    color: #287AFF;
-}
-a:visited {
-    text-decoration: none;
-    color: #287AFF;
-}
-a:active {
-    text-decoration: none;
-    color: #287AFF;
-}
-a:hover {
-    text-decoration: none;
-    color: #287AFF;
 }
