@@ -17,14 +17,21 @@ const changeViewMode = function() {
 }
 
 $("#tier-3, #tier-4, #tier-5").on("keyup input paste", () => {
+    const rawTierThreeAmount = getElement("tier-3").valueAsNumber || 0;
+    if (rawTierThreeAmount > 120) getElement("tier-3").value = 120;
+    const rawTierFourAmount = getElement("tier-4").valueAsNumber || 0;
+    if (rawTierFourAmount > 30) getElement("tier-4").value = 30;
+    const rawTierFiveAmount = getElement("tier-5").valueAsNumber || 0;
+    if (rawTierFiveAmount > 6) getElement("tier-5").value = 6;
     const tierThreeAmount = getElement("tier-3").valueAsNumber || 0;
     const tierFourAmount = getElement("tier-4").valueAsNumber || 0;
     const tierFiveAmount = getElement("tier-5").valueAsNumber || 0;
     const rawRequiredAmount = 120 - tierThreeAmount - 4 * tierFourAmount - 20 * tierFiveAmount;
-    const requiredAmount = rawRequiredAmount > 0 ? rawRequiredAmount : 0;
-    const rawRequiredRuble = 100000 * ((tierThreeAmount + requiredAmount) / 4) + 500000 * (6 - tierFiveAmount) + 1000000;
+    const requiredTierThreeAmount = rawRequiredAmount > 0 ? rawRequiredAmount : 0;
+    const requiredTierFourAmount = (6 - tierFiveAmount) * 5 > tierFourAmount ? (6 - tierFiveAmount) * 5 - tierFourAmount : 0;
+    const rawRequiredRuble = 1000000 + 500000 * (6 - tierFiveAmount) + 100000 * requiredTierFourAmount;
     const requiredRuble = rawRequiredRuble > 0 ? rawRequiredRuble : 0;
-    getElement("card-required-amount").innerText = `추가로 필요한 3티어 카드 개수 : ${requiredAmount}`;
+    getElement("card-required-amount").innerText = `추가로 필요한 3티어 카드 개수 : ${requiredTierThreeAmount}`;
     getElement("card-required-ruble").innerText = `6티어 강화까지 필요한 루블 : ${requiredRuble.toLocaleString()}`;
 });
 
