@@ -1,9 +1,4 @@
 const getElement = (id) => document.getElementById(id);
- 
-const imageUrlList = [
-    '../assets/low.png',
-    '../assets/high.png'
-];
 
 const songpyeonAmount = {
     'pink': 0,
@@ -12,7 +7,12 @@ const songpyeonAmount = {
     'pig': 0
 };
 
-const onCheckboxClick = function(level) {
+const onCheckboxClick = function(level, name = undefined) {
+    if (name !== undefined) {
+        const checked = getElement(name).checked;
+        if (checked) localStorage.setItem(name, "true");
+        else localStorage.setItem(name, "false");
+    }
     const checkList = [...document.getElementsByClassName(`${level}-item-checkbox`)].map(e => e.checked);
     const selectAllCheckbox = document.getElementsByClassName('select-all-checkbox')[0];
     selectAllCheckbox.checked = checkList.every(e => e);
@@ -47,12 +47,12 @@ const onChangeButtonClick = function() {
     const table = document.getElementsByClassName('item-table')[0];
     if (img.id === "low-gashapon-img") {
         img.setAttribute('id', 'high-gashapon-img');
-        img.setAttribute('src', imageUrlList[1]);
+        img.setAttribute('src', '../assets/high.png');
         table.setAttribute('id', 'high-item-table');
         setTable(itemData.high, 'high');
     } else {
         img.setAttribute('id', 'low-gashapon-img');
-        img.setAttribute('src', imageUrlList[0]);
+        img.setAttribute('src', '../assets/low.png');
         table.setAttribute('id', 'low-item-table');
         setTable(itemData.low, 'low');
     }
@@ -74,9 +74,10 @@ const setTable = function(itemList, level) {
     const equipItemList = itemList.filter(i => i.isEquipItem);
     const otherItemList = itemList.filter(i => !i.isEquipItem);
     for (const i of equipItemList) {
+        const checked = localStorage.getItem(i.name) === "true" ? " checked='checked'" : "";
         const item = document.createElement('tr');
         item.innerHTML = `<td class='has-item'>
-            <input type='checkbox' class='${level}-item-checkbox' onclick='onCheckboxClick("${level}")'>
+            <input type='checkbox' class='${level}-item-checkbox' id='${i.name}' onclick='onCheckboxClick("${level}", "${i.name}")'${checked}>
         </td>
         <td class='name'>
             ${i.name}
@@ -98,20 +99,18 @@ const setTable = function(itemList, level) {
         </td>`;
         table.append(item);
     }
-    const equipItemProbability = Math.round(equipItemList.map(i => i.probability).reduce((a,b) => a + b) * 1000) / 1000; 
     const img = document.getElementsByClassName('gashapon-img')[0];
     switch (level) {
         case 'high': 
             img.setAttribute('id', 'high-gashapon-img');
-            img.setAttribute('src', imageUrlList[1]);
+            img.setAttribute('src', '../assets/high.png');
             break;
         case 'low':
             img.setAttribute('id', 'low-gashapon-img');
-            img.setAttribute('src', imageUrlList[0]);
+            img.setAttribute('src', '../assets/low.png');
             break;
     }
-    const totalProbability = getElement('total-probability');
-    totalProbability.innerText = `장착 아이템 확률 : ${equipItemProbability}%`;
+    onCheckboxClick(level);
 };
 
 const onAmountChange = function (name) {
@@ -157,31 +156,18 @@ const onAmountChange = function (name) {
     totalProbability.innerText = `장착 아이템 확률 : ${Math.round(equipItemTotalProbability * 1000)/1000}%`;
 };
 
-const onDarkCheckboxClick = function() {
-    const darkCheckbox = getElement('dark-checkbox');
-    const isDark = darkCheckbox.checked;
-    if (isDark) {
-        document.documentElement.setAttribute('color-theme', 'dark');
-        localStorage.setItem('color-theme', 'dark');
-        getElement('header-img').setAttribute('src','../assets/logo-dark.png');
-        getElement('setting-img').setAttribute('src','../assets/setting-dark.png');
-    } else {
-        document.documentElement.setAttribute('color-theme', 'light');
-        localStorage.setItem('color-theme', 'light');
-        getElement('header-img').setAttribute('src','../assets/logo-light.png');
-        getElement('setting-img').setAttribute('src','../assets/setting-light.png');
-    }
-} 
-
-
 const onSelectAllCheckboxClick = function(level) {
     const selectAllCheckbox = document.getElementsByClassName('select-all-checkbox')[0];
     const checkboxList = document.getElementsByClassName(`${level}-item-checkbox`);
     for (i = 0; i < checkboxList.length; i++) {
         checkboxList[i].checked = selectAllCheckbox.checked;
     }
+    const equipItemList = itemData[level].filter(i => i.isEquipItem);
+    for (i of equipItemList) {
+        localStorage.setItem(i.name, selectAllCheckbox.checked.toString());
+    }
     onCheckboxClick(level);
-}
+};
 
 const changeViewMode = function() {
     const theme = document.documentElement.getAttribute('color-theme')
@@ -197,7 +183,7 @@ const changeViewMode = function() {
         getElement('view-mode-svg').setAttribute('src', '../assets/sun.svg');
         getElement('header-img').setAttribute('src','../assets/logo-dark.png');
     }
-}
+};
 
 $(window).on("resize", () => {
     const vh = window.innerHeight * 0.01;
@@ -215,4 +201,6 @@ if (colorTheme === 'dark') {
 } else {
     getElement('view-mode-svg').setAttribute('src', '../assets/moon.svg');
 }
+const vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty('--vh', `${vh}px`);
 setTable(itemData.high, "high");
