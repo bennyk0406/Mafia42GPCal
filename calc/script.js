@@ -55,6 +55,10 @@ $(".select").on("change", () => {
 });
 
 $("#ruble, #luna, #rate").on("keyup input paste", () => {
+    const rawRubleAmount = getElement("ruble").valueAsNumber || 0;
+    if (rawRubleAmount < 0) getElement("ruble").value = 0;
+    const rawLunaAmount = getElement("luna").valueAsNumber || 0;
+    if (rawLunaAmount < 0) getElement("luna").value = 0;
     const rubleAmount = getElement("ruble").valueAsNumber || 0;
     const lunaAmount = getElement("luna").valueAsNumber || 0;
     const rate = getElement("rate").valueAsNumber || 0;
@@ -91,7 +95,8 @@ $("#current-mailbox, #goal-mailbox").on("focusout", () => {
 
 $("#fame").on("keyup input paste", () => {
     const currentFame = getElement("fame").valueAsNumber || 0;
-    const postcardFame = 20 + Math.floor(currentFame * 0.015);
+    const rawPostcardFame = 20 + Math.floor(currentFame * 0.015);
+    const postcardFame = rawPostcardFame < 20 ? 20 : rawPostcardFame;
     getElement("postcard-fame").innerText = `권위의 엽서 명성 : -${postcardFame.toLocaleString()}`; 
 });
 
